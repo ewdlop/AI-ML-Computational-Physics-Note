@@ -1,3 +1,6 @@
 [submodule "MachineLearningInUnity"]
 	path = MachineLearningInUnity
 	url = https://github.com/ewdlop/MachineLearningInUnity.git
+[submodule "Data-Mining"]
+	path = Data-Mining
+	url = https://github.com/ewdlop/Data-Mining.git
