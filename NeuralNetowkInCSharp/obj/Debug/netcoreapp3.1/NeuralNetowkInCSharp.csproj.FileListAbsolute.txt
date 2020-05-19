@@ -1,0 +1,4 @@
+C:\Users\Ray\Desktop\Blazor\AI-Machine-Learning\NeuralNetowkInCSharp\bin\Debug\netcoreapp3.1\NeuralNetowkInCSharp.exe
+C:\Users\Ray\Desktop\Blazor\AI-Machine-Learning\NeuralNetowkInCSharp\obj\Debug\netcoreapp3.1\NeuralNetowkInCSharp.csprojAssemblyReference.cache
+C:\Users\Ray\Desktop\Blazor\AI-Machine-Learning\NeuralNetowkInCSharp\obj\Debug\netcoreapp3.1\NeuralNetowkInCSharp.AssemblyInfoInputs.cache
+C:\Users\Ray\Desktop\Blazor\AI-Machine-Learning\NeuralNetowkInCSharp\obj\Debug\netcoreapp3.1\NeuralNetowkInCSharp.AssemblyInfo.cs
