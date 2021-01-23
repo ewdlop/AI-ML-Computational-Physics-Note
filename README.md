@@ -1,4 +1,4 @@
-# AI-Machine-Learning
+# Learnign AI/Machine-Learning
 Q-Learning Agent,a Unity Project: a User interface with adjustable parameters for training a Q-Learnign Agent, written in C#.<br />
 Reference:<br />
 Artificial Intelligence: A Modern Approach <br />
