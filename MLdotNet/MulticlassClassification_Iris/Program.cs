@@ -76,11 +76,11 @@ namespace MulticlassClassification_Iris
             Console.WriteLine($"    LogLoss for class 1 = {metrics.PerClassLogLoss[0]:0.####}, the closer to 0, the better");
             Console.WriteLine($"    LogLoss for class 2 = {metrics.PerClassLogLoss[1]:0.####}, the closer to 0, the better");
             Console.WriteLine($"    LogLoss for class 3 = {metrics.PerClassLogLoss[2]:0.####}, the closer to 0, the better");
-            Console.WriteLine($"************************************************************");
+            Console.WriteLine($"************************************************************\n");
 
             // STEP 6: Save/persist the trained model to a .ZIP file
             mlContext.Model.Save(trainedModel, trainingDataView.Schema, ModelPath);
-            Console.WriteLine("The model is saved to {0}", ModelPath);
+            Console.WriteLine("The model is saved to {0}\n", ModelPath);
 
             //Test
             testMethod?.Invoke(mlContext);
