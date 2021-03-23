@@ -3,7 +3,13 @@ using System.Collections.Generic;
 
 namespace BasicNeuralNetwork
 {
-    public class NeuralNetwork
+    interface INeuralNetwork
+    {
+        double[] Run(in List<double> input);
+        bool Train(List<double> input, List<double> target);
+    }
+
+    public class NeuralNetwork : INeuralNetwork
     {
         public List<Layer> Layers { get; set; }
         public double LearningRate { get; set; }
@@ -13,7 +19,7 @@ namespace BasicNeuralNetwork
         {
             if (layers.Length < 2) return;
 
-            LearningRate = learningRate;
+            LearningRate = learningRate;//[0,1]
             Layers = new List<Layer>();
 
             for (int l = 0; l < layers.Length; l++)
@@ -42,7 +48,7 @@ namespace BasicNeuralNetwork
             }
         }
 
-        private static double Sigmoid(in double x) //Activation Function
+        private static double Sigmoid(in double x) //a choice of Activation Function
         {
             return 1 / (1 + Math.Exp(-x));
         }
@@ -70,7 +76,7 @@ namespace BasicNeuralNetwork
                         {
                             neuron.Value += Layers[l - 1].Neurons[np].Value * neuron.Dendrites[np].Weight;
                         }
-
+                        //Actviation function
                         neuron.Value = Sigmoid(neuron.Value + neuron.Bias);
                     }
                 }
@@ -90,54 +96,63 @@ namespace BasicNeuralNetwork
         //https://en.wikipedia.org/wiki/Backpropagation
         public bool Train(List<double> input, List<double> target)
         {
-            if ((input.Count != Layers[0].Neurons.Count) || (target.Count != Layers[^1].Neurons.Count)) return false;
-
-            Run(input);
-
-            //with Sigmoid
-            //output layer
-            for (int j = 0; j < Layers[^1].Neurons.Count; j++)
+            try
             {
-                //o_j
-                var neuron = Layers[^1].Neurons[j];
-                //delta_j
-                neuron.Delta = neuron.Value * (1 - neuron.Value) * (neuron.Value - target[j]);
-            }
+                if ((input.Count != Layers[0].Neurons.Count) || (target.Count != Layers[^1].Neurons.Count)) return false;
 
-            //inner layers(total - input/output layers)
-            for (int k = Layers.Count - 2; k > 0; k--)
-            {
-                for (int j = 0; j < Layers[k].Neurons.Count; j++)
+                Run(input);
+
+                //with Sigmoid
+                //output layer
+                for (int j = 0; j < Layers[^1].Neurons.Count; j++)
                 {
-                    var neuron = Layers[k].Neurons[j];
- 
+                    //o_j
+                    var neuron = Layers[^1].Neurons[j];
                     //delta_j
-                    for(int l = 0; l < Layers[k + 1].Neurons.Count; l++)
-                    {
-                        neuron.Delta += neuron.Value *
-                          (1 - neuron.Value) *
-                          Layers[k + 1].Neurons[l].Dendrites[j].Weight *
-                          Layers[k + 1].Neurons[l].Delta;
-                    }
+                    //derivative of sigmoid(x) respect t x is x(1-x)
+                    neuron.Delta = neuron.Value * (1 - neuron.Value) * (neuron.Value - target[j]);
                 }
-            }
 
-            for (int k = Layers.Count - 1; k > 0; k--)
-            {
-                for (int j = 0; j < Layers[k].Neurons.Count; j++)
+                //inner layers(all layers, excluding input and output layers)
+                for (int k = Layers.Count - 2; k > 0; k--)//going back for "back"propagatin
                 {
-                    var n = Layers[k].Neurons[j];
-                    n.Bias += LearningRate * n.Delta;
-
-                    for (int i = 0; i < n.DendriteCount; i++)
+                    for (int j = 0; j < Layers[k].Neurons.Count; j++)
                     {
-                        //w_ij
-                        n.Dendrites[i].Weight += LearningRate * Layers[k - 1].Neurons[i].Value * n.Delta;
+                        var neuron = Layers[k].Neurons[j];
+
+                        //delta_j
+                        for (int l = 0; l < Layers[k + 1].Neurons.Count; l++)
+                        {
+                            //derivative of sigmoid(x) respect t x is x(1-x)
+                            neuron.Delta += neuron.Value *
+                              (1 - neuron.Value) *
+                              Layers[k + 1].Neurons[l].Dendrites[j].Weight *
+                              Layers[k + 1].Neurons[l].Delta;
+                        }
                     }
                 }
-            }
 
-            return true;
+                for (int k = Layers.Count - 1; k > 0; k--)
+                {
+                    for (int j = 0; j < Layers[k].Neurons.Count; j++)
+                    {
+                        var n = Layers[k].Neurons[j];
+                        n.Bias += LearningRate * n.Delta;
+
+                        for (int i = 0; i < n.DendriteCount; i++)
+                        {
+                            //w_ij
+                            //updating weight
+                            n.Dendrites[i].Weight += LearningRate * Layers[k - 1].Neurons[i].Value * n.Delta;
+                        }
+                    }
+                }
+                return true;
+            }
+            catch(Exception)
+            {
+                throw;
+            }
         }
     }
 }
