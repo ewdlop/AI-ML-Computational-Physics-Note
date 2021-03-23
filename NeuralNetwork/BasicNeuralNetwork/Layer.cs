@@ -4,7 +4,7 @@ namespace BasicNeuralNetwork
 {
     public class Layer
     {
-        public List<Neuron> Neurons { get; set; }
+        public IList<Neuron> Neurons { get; set; }
         public int NeuronCount => Neurons.Count;
 
         public Layer(int numNeurons)

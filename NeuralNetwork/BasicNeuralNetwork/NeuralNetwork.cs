@@ -3,19 +3,30 @@ using System.Collections.Generic;
 
 namespace BasicNeuralNetwork
 {
-    interface INeuralNetwork
+    public class NeuralNetworkEventArgs : EventArgs
     {
-        double[] Run(in List<double> input);
-        bool Train(List<double> input, List<double> target);
+
+    }
+    public interface INeuralNetworkState
+    {
+        event EventHandler<NeuralNetworkEventArgs> Ran;
+        event EventHandler<NeuralNetworkEventArgs> Trained;
+    }
+    public interface ITrainable
+    {
+        bool Train(in IList<double> input, in IList<double> target);
+    }
+    public interface IRunnable
+    {
+        double[] Run(in IList<double> input);
     }
 
-    public class NeuralNetwork : INeuralNetwork
+    public interface INeuralNetwork : IRunnable, ITrainable, INeuralNetworkState{}
+    public abstract class NeuralNetwork : INeuralNetwork
     {
-        public List<Layer> Layers { get; set; }
+        public IList<Layer> Layers { get; set; }
         public double LearningRate { get; set; }
-        public int LayerCount => Layers.Count;
-
-        public NeuralNetwork(in double learningRate, int[] layers)
+        protected NeuralNetwork(in double learningRate, int[] layers)
         {
             if (layers.Length < 2) return;
 
@@ -32,7 +43,8 @@ namespace BasicNeuralNetwork
                     layer.Neurons.Add(new Neuron());
                 }
 
-                layer.Neurons.ForEach((nn) => {
+                foreach(var nn in layer.Neurons)
+                {
                     if (l != 0)
                     {
                         for (int d = 0; d < layers[l - 1]; d++)
@@ -44,16 +56,17 @@ namespace BasicNeuralNetwork
                     {
                         nn.Bias = 0;
                     }
-                });
+                }
             }
         }
 
-        private static double Sigmoid(in double x) //a choice of Activation Function
+        public event EventHandler<NeuralNetworkEventArgs> Ran;
+        public event EventHandler<NeuralNetworkEventArgs> Trained;
+        private double ActivationFunction(in double x)
         {
-            return 1 / (1 + Math.Exp(-x));
+            return 1 / (1 + Math.Exp(-x));//a choice of Activation Function, using Sigmoid
         }
-
-        public double[] Run(in List<double> input)
+        public virtual double[] Run(in IList<double> input)
         {
             if (input.Count != Layers[0].NeuronCount) return null;
 
@@ -77,7 +90,7 @@ namespace BasicNeuralNetwork
                             neuron.Value += Layers[l - 1].Neurons[np].Value * neuron.Dendrites[np].Weight;
                         }
                         //Actviation function
-                        neuron.Value = Sigmoid(neuron.Value + neuron.Bias);
+                        neuron.Value = ActivationFunction(neuron.Value + neuron.Bias);
                     }
                 }
             }
@@ -89,19 +102,18 @@ namespace BasicNeuralNetwork
             {
                 output[i] = last.Neurons[i].Value;
             }
-
+            OnRan(new NeuralNetworkEventArgs());
             return output;
         }
 
         //https://en.wikipedia.org/wiki/Backpropagation
-        public bool Train(List<double> input, List<double> target)
+        public virtual bool Train(in IList<double> input, in IList<double> target)
         {
             try
             {
                 if ((input.Count != Layers[0].Neurons.Count) || (target.Count != Layers[^1].Neurons.Count)) return false;
 
                 Run(input);
-
                 //with Sigmoid
                 //output layer
                 for (int j = 0; j < Layers[^1].Neurons.Count; j++)
@@ -147,12 +159,21 @@ namespace BasicNeuralNetwork
                         }
                     }
                 }
+                OnTrained(new NeuralNetworkEventArgs());
                 return true;
             }
             catch(Exception)
             {
                 throw;
             }
+        }
+        protected virtual void OnRan(NeuralNetworkEventArgs e)
+        {
+            Ran?.Invoke(this, e);
+        }
+        protected virtual void OnTrained(NeuralNetworkEventArgs e)
+        {
+            Trained?.Invoke(this, e);
         }
     }
 }
