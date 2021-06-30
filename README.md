@@ -1,5 +1,5 @@
-# Learning AI/Machine-Learning
-Q-Learning Agent,a Unity Project: a User interface with adjustable parameters for training a Q-Learning Agent, written in C#.<br />
+# AI/Machine-Learning
+Pathfinder, Q-Learning Agent,a Unity Project: a User interface with adjustable parameters for training a Q-Learning Agent, written in C#.<br />
 Reference:<br />
 Artificial Intelligence: A Modern Approach <br />
 http://aima.cs.berkeley.edu/<br />
