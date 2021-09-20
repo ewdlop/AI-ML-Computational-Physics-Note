@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLConsolApp", "MLConsolApp.csproj", "{23B50F4A-7130-46F2-B7D6-D9BA4E3C4813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLConsolApp", "MLConsolApp.csproj", "{23B50F4A-7130-46F2-B7D6-D9BA4E3C4813}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryClassification", "..\BinaryClassification\BinaryClassification.csproj", "{414537BE-7320-48AC-AAC9-8A4B62C340AD}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SentimentModel_ConsoleApp1", "..\SentimentModel_ConsoleApp1\SentimentModel_ConsoleApp1.csproj", "{A0EB6078-77CA-4CF3-A5E8-3BBBBB657A73}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SentimentModel_WebApi1", "..\SentimentModel_WebApi1\SentimentModel_WebApi1.csproj", "{D8B425C2-8B7C-4788-BE74-40D3D5934F7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinnerLoser", "..\WinnerLoser\WinnerLoser.csproj", "{0D64E10F-6CAC-4B6E-97D6-A9792DD3F7D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D8B425C2-8B7C-4788-BE74-40D3D5934F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8B425C2-8B7C-4788-BE74-40D3D5934F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8B425C2-8B7C-4788-BE74-40D3D5934F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D64E10F-6CAC-4B6E-97D6-A9792DD3F7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D64E10F-6CAC-4B6E-97D6-A9792DD3F7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D64E10F-6CAC-4B6E-97D6-A9792DD3F7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D64E10F-6CAC-4B6E-97D6-A9792DD3F7D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
