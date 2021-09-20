@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+ranbs0b5+nZu0yqJJrDN5yaPK834Vk5YD2kqj7KeiJOXHtKQhEPFu9RJeWDwq14aBMJZ1oatyO2UfTTmU9YOw==",
+  "dgSpecHash": "gYwuAq1JjxEp30HAPQX8MwIxM1XHSenaxwP5HP4BsDrtndk+h2j3kjXVP13uhXRveEbRA0S2fYlrqJQ+G725aQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ray\\Desktop\\Blazor\\AI-Machine-Learning\\MLdotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj",
+  "projectFilePath": "C:\\Users\\Ray\\Desktop\\Code\\AI-Machine-Learning\\MLDotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ray\\.nuget\\packages\\microsoft.csharp\\4.3.0\\microsoft.csharp.4.3.0.nupkg.sha512",
     "C:\\Users\\Ray\\.nuget\\packages\\microsoft.ml\\1.5.4\\microsoft.ml.1.5.4.nupkg.sha512",
@@ -94,7 +94,8 @@
     "C:\\Users\\Ray\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Ray\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Ray\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Ray\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\Ray\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Ray\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.8\\microsoft.netcore.app.host.win-x64.5.0.8.nupkg.sha512"
   ],
   "logs": []
 }

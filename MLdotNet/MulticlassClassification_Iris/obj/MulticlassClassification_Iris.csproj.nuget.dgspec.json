@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ray\\Desktop\\Blazor\\AI-Machine-Learning\\MLdotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj": {}
+    "C:\\Users\\Ray\\Desktop\\Code\\AI-Machine-Learning\\MLDotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ray\\Desktop\\Blazor\\AI-Machine-Learning\\MLdotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj": {
+    "C:\\Users\\Ray\\Desktop\\Code\\AI-Machine-Learning\\MLDotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ray\\Desktop\\Blazor\\AI-Machine-Learning\\MLdotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj",
+        "projectUniqueName": "C:\\Users\\Ray\\Desktop\\Code\\AI-Machine-Learning\\MLDotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj",
         "projectName": "MulticlassClassification_Iris",
-        "projectPath": "C:\\Users\\Ray\\Desktop\\Blazor\\AI-Machine-Learning\\MLdotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj",
+        "projectPath": "C:\\Users\\Ray\\Desktop\\Code\\AI-Machine-Learning\\MLDotNet\\MulticlassClassification_Iris\\MulticlassClassification_Iris.csproj",
         "packagesPath": "C:\\Users\\Ray\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ray\\Desktop\\Blazor\\AI-Machine-Learning\\MLdotNet\\MulticlassClassification_Iris\\obj\\",
+        "outputPath": "C:\\Users\\Ray\\Desktop\\Code\\AI-Machine-Learning\\MLDotNet\\MulticlassClassification_Iris\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\Ray\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -27,6 +29,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -60,12 +63,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.8, 5.0.8]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.7.21379.14\\RuntimeIdentifierGraph.json"
         }
       }
     }
