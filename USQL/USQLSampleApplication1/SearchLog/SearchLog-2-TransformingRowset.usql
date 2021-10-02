@@ -1,0 +1,40 @@
+﻿ /*
+Note:
+Please run the scripts in the given order (for example running script-1 first and then run script-2, since there are some data dependencies).
+The purpose of this script is to give you a taste of the new Big Data query language U-SQL. You can always get the newest version of this lab from the link below:
+https://github.com/MicrosoftBigData/AzureDataLake/blob/master/docs/Hands_on_Labs/USQL_HOL.md
+*/
+
+/*
+A rowset can be transformed by applying U-SQL SELECT expressions. You can perform complex filters by combining them with logical conjunctions (ands) and disjunctions (ors) and can even use the full might of the C# expression language to do your own expressions and functions. U-SQL provides support for both AND and OR which will reorder the predicate conditions and && and || which provide order guarantee and short cutting.
+
+The following query makes use of the DateTime.Parse() method because there is no C# literal for the DateTime type and uses a conjunction.
+*/
+@searchlog =
+    EXTRACT UserId int,
+            Start DateTime,
+            Region string,
+            Query string,
+            Duration int?,
+            Urls string,
+            ClickedUrls string
+    FROM "/Samples/Data/SearchLog.tsv"
+    USING Extractors.Tsv();
+
+@rs1 =
+    SELECT Start,
+           Region,
+           Duration
+    FROM @searchlog
+    WHERE Region == "en-gb";
+
+@rs1 =
+    SELECT Start,
+           Region,
+           Duration
+    FROM @rs1
+    WHERE Start >= DateTime.Parse("2012/02/16") AND Start <= DateTime.Parse("2012/02/17");
+
+OUTPUT @rs1
+TO "/output/SearchLogResult2.csv"
+USING Outputters.Csv();

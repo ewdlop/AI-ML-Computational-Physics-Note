@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to run this U-SQL Sample Application</title>
+<style>
+dt {font-weight:bold;}
+</style>
+</head>
+<body>
+<h1>How to run this U-SQL Sample Application</h1>
+
+<dl>
+<dt>1.	Submit scripts to (Local-machine) account</dt>
+<dd>(Local-machine) account provides a shared local execution environment on your local machine. ADL Tools for VS has a built-in U-SQL local execution engine, and <b>DataRoot</b> folder points to a shared local storage account.
+<br/>To set up data to run against (Local-machine) account, please copy the <b>Samples</b> folder from the <a href="./TestData"><b>TestData folder</b> under project's directory</a> to the local run <b>DataRoot</b> folder. The <b>DataRoot</b> folder is configured at:
+ 
+<ul><li>Tools &rarr; DataLake &rarr; Options and Settings ... &rarr; Azure Data Lake &rarr; General &rarr; U-SQL Local Run &rarr; DataRoot</li></ul>
+</dd>
+
+<dt>2.	Submit scripts to (Local-project) account</dt>
+<dd>(Local-project) account provides an isolated project level local execution environment for each run. It uses ADL Tools for VS's build in U-SQL local execution engine, and creates <b>a temporary DataRoot folder
+under project working directory for each run.</b>
+<br/><b>No action is needed for setting up data to run against (Local-project) account.</b> If you would like to change the input data source, please configure the folder path for input data through:
+ 
+<ul><li>Right click project in Solution Explorer &rarr; Properties &rarr; Test Data Source</li></ul>
+</dd>
+
+<dt>3.	Submit scripts to ADLA account</dt>
+<dd>ADLA account scales data process to multiple vertices on cloud. Every ADLA account has a default associated ADLS account as its storage.
+<br/>To set up data to run against ADLA account, please <b>upload the Samples folder</b> from the <a href="./TestData"><b>TestData folder</b> under project's directory</a> to the root of the default ADLS account.
+<p/>
+</dd>
+
+<dt>For more information</dt>
+<dd><a href="https://go.microsoft.com/fwlink/?linkid=874679">See the difference between (Local-machine) and (Local-project) account</a></dd>
+<dd><a href="https://go.microsoft.com/fwlink/?linkid=627262">U-SQL language reference</a></dd>
+</dl>
+</body>
+</html>

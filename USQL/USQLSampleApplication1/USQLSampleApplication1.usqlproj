@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>File</OutputType>
+    <AssemblyName>USQLSampleApplication1.usqlpack</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <RuntimeVersion>default</RuntimeVersion>
+    <InputStreamSearchPath>%24(PROJECT_DIR);%24(SCRIPT_DIR);%24(CLUSTER_ROOT)</InputStreamSearchPath>
+    <USQLProjectVersion>2</USQLProjectVersion>
+    <USqlLocalTestDataFolders>TestData</USqlLocalTestDataFolders>
+    <Name>USQLSampleApplication1</Name>
+    <RootNamespace>USQLSampleApplication1</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="AmbulanceDataSet" />
+    <Folder Include="SearchLog" />
+    <Folder Include="TestData" />
+    <Folder Include="TestData\Samples" />
+    <Folder Include="TestData\Samples\Data" />
+    <Folder Include="TestData\Samples\Data\AmbulanceData" />
+  </ItemGroup>
+  <ItemGroup>
+    <Script Include="AmbulanceDataSet\Ambulance-1-1-QueryDriversOnADL.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-2-1-CreateObjects.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-2-2-LoadingTables.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-2-3-CopyTable.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-2-4-InsertConstantValues.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-2-5-IncrementalInsert.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-2-6-ShowResults.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-3-1-FileSets.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-3-2-CreatePartitionedTable.usql" />
+    <Script Include="AmbulanceDataSet\Ambulance-3-3-PartitionTable-Query.usql" />
+    <Script Include="SearchLog\SearchLog-1-First_U-SQL_Script.usql" />
+    <Script Include="SearchLog\SearchLog-2-TransformingRowset.usql" />
+    <Script Include="SearchLog\SearchLog-3-OrderingGroupingAggregation.usql" />
+    <Script Include="SearchLog\SearchLog-4-CreatingTable.usql" />
+    <Script Include="SearchLog\SearchLog-5-QueryFromTable.usql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-1-1-QueryDriversOnADL.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-1-1-QueryDriversOnADL.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-2-1-CreateObjects.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-2-1-CreateObjects.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-2-2-LoadingTables.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-2-2-LoadingTables.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-2-3-CopyTable.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-2-3-CopyTable.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-2-4-InsertConstantValues.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-2-4-InsertConstantValues.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-2-5-IncrementalInsert.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-2-5-IncrementalInsert.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-2-6-ShowResults.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-2-6-ShowResults.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-3-1-FileSets.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-3-1-FileSets.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-3-2-CreatePartitionedTable.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-3-2-CreatePartitionedTable.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="AmbulanceDataSet\Ambulance-3-3-PartitionTable-Query.usql.cs">
+      <DependentUpon>AmbulanceDataSet\Ambulance-3-3-PartitionTable-Query.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="SearchLog\SearchLog-1-First_U-SQL_Script.usql.cs">
+      <DependentUpon>SearchLog\SearchLog-1-First_U-SQL_Script.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="SearchLog\SearchLog-2-TransformingRowset.usql.cs">
+      <DependentUpon>SearchLog\SearchLog-2-TransformingRowset.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="SearchLog\SearchLog-3-OrderingGroupingAggregation.usql.cs">
+      <DependentUpon>SearchLog\SearchLog-3-OrderingGroupingAggregation.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="SearchLog\SearchLog-4-CreatingTable.usql.cs">
+      <DependentUpon>SearchLog\SearchLog-4-CreatingTable.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="SearchLog\SearchLog-5-QueryFromTable.usql.cs">
+      <DependentUpon>SearchLog\SearchLog-5-QueryFromTable.usql</DependentUpon>
+    </ScriptCode>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\Samples\Data\AmbulanceData\Drivers.txt">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\DriverShiftTrips.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle1_09142014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle1_09152014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle1_09162014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle1_09172014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle2_09142014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle2_09152014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle2_09162014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle2_09172014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle3_09142014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle3_09152014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle3_09162014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle3_09172014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle4_09142014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle4_09152014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle4_09162014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\AmbulanceData\vehicle4_09172014.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TestData\Samples\Data\SearchLog.tsv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Readme.htm">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <!-- check for SDK Build target in current path then in USQLSDKPath -->
+  <Import Project="UsqlSDKBuild.targets" Condition=" Exists('UsqlSDKBuild.targets')" />
+  <Import Project="$(USQLSDKPath)\UsqlSDKBuild.targets" Condition="!Exists('UsqlSDKBuild.targets') And '$(USQLSDKPath)' != '' And Exists('$(USQLSDKPath)\UsqlSDKBuild.targets')" />
+</Project>
