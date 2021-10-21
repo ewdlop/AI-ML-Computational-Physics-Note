@@ -18,12 +18,8 @@ namespace AIMA.Agent.Environment
 
         //protected LinkedHashSet<EnvironmentView> views = new LinkedHashSet<EnvironmentView>();
 
-        protected readonly Dictionary<IAgent<T1, T2>, double> _performanceMeasures;
-        Dictionary<IAgent<T1, T2>, double> IEnvironment<T1, T2>.PerformanceMeasures => _performanceMeasures;
-        protected Environment()
-        {
-            _performanceMeasures = new();
-        }
+        protected Dictionary<IAgent<T1, T2>, double> _performanceMeasures { get; init; } = new();
+        public IReadOnlyDictionary<IAgent<T1, T2>, double> ReadOnlyPerformanceMeasures => _performanceMeasures;
         public abstract IEnvironmentState GetCurrentState();
         public abstract IEnvironmentState ExecuteAction(IAgent<T1, T2> agent, T1 action);
         public abstract T2 GetPerceptSeenBy(IAgent<T1, T2> agent);

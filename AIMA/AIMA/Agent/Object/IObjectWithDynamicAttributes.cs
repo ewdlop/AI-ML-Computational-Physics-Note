@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AIMA.Agent.Object
 {
     public interface IObjectWithDynamicAttributes
     {
-        Dictionary<object, object> Attributes { get;}
+        IReadOnlyDictionary<object, object> Attributes { get;}
         string DescribeType { get; }
         string DescribeAttributes();
         HashSet<object> GetKeySet();

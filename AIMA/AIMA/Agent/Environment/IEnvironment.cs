@@ -6,7 +6,7 @@ namespace AIMA.Agent.Environment
 {
     public interface IEnvironment<T1,T2> where T1 : IAction where T2 : IPercept
     {
-        Dictionary<IAgent<T1, T2>, double> PerformanceMeasures { get; }
+        IReadOnlyDictionary<IAgent<T1, T2>, double> ReadOnlyPerformanceMeasures { get; }
         IList<IAgent<T1,T2>> GetAgents();
         void AddAgent(IAgent<T1,T2> agent);
         void RemoveAgent(IAgent<T1,T2> agent);

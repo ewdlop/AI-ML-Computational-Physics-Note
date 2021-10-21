@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 
@@ -7,19 +8,15 @@ namespace AIMA.Agent.Object
 {
     public abstract class ObjectWithDynamicAttributes : IObjectWithDynamicAttributes
     {
-        private readonly Dictionary<object, object> _attributes;
-        Dictionary<object, object> IObjectWithDynamicAttributes.Attributes => _attributes;
-        protected ObjectWithDynamicAttributes()
-        {
-            _attributes = new Dictionary<object, object>();
-        }
+        private Dictionary<object, object> Attributes { get; init; } = new();
+        public IReadOnlyDictionary<object, object> ReadOnlyAttributes => Attributes;
         public virtual string DescribeType => GetType().Name;
         public virtual string DescribeAttributes()
         {
             var stringBuildr = new StringBuilder();
             stringBuildr.Append('[');
             bool first = true;
-            foreach (object key in _attributes.Keys)
+            foreach (object key in Attributes.Keys)
             {
                 if (first)
                 {
@@ -31,24 +28,24 @@ namespace AIMA.Agent.Object
                 }
                 stringBuildr.Append(key);
                 stringBuildr.Append("==");
-                stringBuildr.Append(_attributes[key]);
+                stringBuildr.Append(Attributes[key]);
             }
             stringBuildr.Append(']');
             return stringBuildr.ToString();
         }
-        public virtual HashSet<object> GetKeySet() => new(_attributes.Keys);
-        public virtual void SetAttribute(object key, object value) => _attributes[key] = value;
-        public virtual object GetAttribute(object key) => _attributes[key];
-        public virtual object RemoveAttribute(object key) => _attributes.Remove(key);
+        public virtual HashSet<object> GetKeySet() => new(Attributes.Keys);
+        public virtual void SetAttribute(object key, object value) => Attributes[key] = value;
+        public virtual object GetAttribute(object key) => Attributes[key];
+        public virtual object RemoveAttribute(object key) => Attributes.Remove(key);
         public virtual IObjectWithDynamicAttributes Copy()
         {
             ObjectWithDynamicAttributes copy = null;
             try
             {
                 copy = (ObjectWithDynamicAttributes)GetType().GetConstructor(Type.EmptyTypes).Invoke(null);
-                foreach (object value in _attributes)
+                foreach (object value in Attributes)
                 {
-                    copy._attributes.Add(value, _attributes[value]);
+                    copy.Attributes.Add(value, Attributes[value]);
                 }
             }
             catch (Exception ex)
@@ -64,12 +61,12 @@ namespace AIMA.Agent.Object
             {
                 return base.Equals(o);
             }
-            return _attributes.Equals(((ObjectWithDynamicAttributes)o)._attributes);
+            return Attributes.Equals(((ObjectWithDynamicAttributes)o).Attributes);
         }
 
         public override int GetHashCode()
         {
-            return _attributes.GetHashCode();
+            return Attributes.GetHashCode();
         }
 
         public override string ToString()
