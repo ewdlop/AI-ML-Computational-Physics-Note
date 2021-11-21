@@ -13,8 +13,7 @@ namespace AIMA.Agent.Object
         public virtual string DescribeType => GetType().Name;
         public virtual string DescribeAttributes()
         {
-            var stringBuildr = new StringBuilder();
-            stringBuildr.Append('[');
+            var stringBuildr = new StringBuilder('[');
             bool first = true;
             foreach (object key in Attributes.Keys)
             {
