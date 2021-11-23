@@ -1,4 +1,5 @@
 ﻿using Microsoft.ML.Probabilistic.Algorithms;
+using Microsoft.ML.Probabilistic.Distributions;
 using Microsoft.ML.Probabilistic.Math;
 using Microsoft.ML.Probabilistic.Models;
 
@@ -67,6 +68,36 @@ public static class MathHelper
         // Retrieve the posterior distributions
         Console.WriteLine("mean=" + engine.Infer(mean));
         Console.WriteLine("prec=" + engine.Infer(precision));
+    }
+
+    public static void TestingBayesPointMachine()
+    {
+        double[] incomes = { 63, 16, 28, 55, 22, 20 };
+        double[] ages = { 38, 23, 40, 27, 18, 40 };
+        bool[] willBuy = { true, false, true, true, false, false };
+
+        // Create x vector, augmented by 1
+        Vector[] xdata = new Vector[incomes.Length];
+        for (int i = 0; i < xdata.Length; i++)
+        {
+            xdata[i] = Vector.FromArray(incomes[i], ages[i], 1);
+        }
+        VariableArray<Vector> x = Variable.Observed(xdata);
+        // Create target y  
+        VariableArray<bool> y = Variable.Observed(willBuy, x.Range);
+        Variable<Vector> w = Variable.Random(new VectorGaussian(Vector.Zero(3), PositiveDefiniteMatrix.Identity(3)));
+        BayesPointMachine(incomes, ages, w, y);
+    }
+
+    public static void BayesPointMachine(double[] incomes, double[] ages, Variable<Vector> w, VariableArray<bool> y)
+    { // Create x vector, augmented by 1 
+        Microsoft.ML.Probabilistic.Models.Range j = y.Range; 
+        Vector[] xdata = new Vector[incomes.Length];
+        double noise = 0.1;
+        for (int i = 0; i < xdata.Length; i++)
+            xdata[i] = Vector.FromArray(incomes[i], ages[i], 1);
+        VariableArray<Vector> x = Variable.Observed(xdata, j); // Bayes Point Machine double noise = 0.1;  
+        y[j] = Variable.GaussianFromMeanAndVariance(Variable.InnerProduct(w, x[j]), noise) > 0;
     }
 
     public static void Main(string[] args)
