@@ -388,3 +388,7 @@ FodyWeavers.xsd
 *.sln.iml
 .vs/slnx.sqlite
 *.sqlite
+
+Keras/ComputerVision/image_classification_from_scratch/PetImages/
+Keras/ComputerVision/image_segmentation_with_a_U-Net-like_architecture/images/
+Keras/ComputerVision/image_segmentation_with_a_U-Net-like_architecture/annotations/
