@@ -2,13 +2,10 @@
 using AIMA.Agent.Percept;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AIMA.Agent.Environment
 {
-    public abstract class Environment<T1, T2> : IEnvironmentViewNotifier, IEnvironment<T1, T2>
+    public abstract class EnvironmentBase<T1, T2> : IEnvironmentViewNotifier, IEnvironment<T1, T2>
         where T1 : IAction
         where T2 : IPercept
     {

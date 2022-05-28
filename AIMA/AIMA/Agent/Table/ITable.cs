@@ -7,7 +7,7 @@ namespace AIMA.Agent.Table
         List<RowHeaderType> RowHeaders { get; init; }
         List<ColumnHeaderType> ColumnHeaders { get; init; }
         Dictionary<RowHeaderType, Dictionary<ColumnHeaderType, ValueType>> Rows { get; init; }
-        public void Set(RowHeaderType r, ColumnHeaderType c, ValueType v);
-        public ValueType Get(RowHeaderType r, ColumnHeaderType c);
+        void Set(RowHeaderType r, ColumnHeaderType c, ValueType v);
+        ValueType Get(RowHeaderType r, ColumnHeaderType c);
     }
 }

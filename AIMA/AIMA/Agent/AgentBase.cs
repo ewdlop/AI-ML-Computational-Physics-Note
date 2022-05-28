@@ -1,14 +1,13 @@
 ﻿using AIMA.Agent.Action;
-using AIMA.Agent.Action.Dynamic;
 using AIMA.Agent.Percept;
 using AIMA.Agent.Program;
 
 namespace AIMA.Agent
 {
-    public abstract class Agent<T1,T2> : IAgent<T1,T2> where T1: IAction where T2: IPercept
+    public abstract class AgentBase<T1,T2> : IAgent<T1,T2> where T1: IAction where T2: IPercept
     {
         protected readonly IAgentProgram<T1,T2> _agentProgram;
-        protected Agent(IAgentProgram<T1, T2> agentProgram)
+        protected AgentBase(IAgentProgram<T1, T2> agentProgram)
         {
             _agentProgram = agentProgram;
         }

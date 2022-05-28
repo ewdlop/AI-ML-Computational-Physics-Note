@@ -3,7 +3,7 @@ using AIMA.Agent.State;
 
 namespace AIMA.Agent.Dynamic
 {
-    public class DynamicState : ObjectWithDynamicAttributes, IState
+    public class DynamicState : ObjectWithDynamicAttributesBase, IState
     {
         public override string DescribeType => typeof(IState).Name;
     }

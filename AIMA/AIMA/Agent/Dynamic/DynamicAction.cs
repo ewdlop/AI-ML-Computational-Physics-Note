@@ -2,7 +2,7 @@
 
 namespace AIMA.Agent.Action.Dynamic
 {
-    public class DynamicAction : ObjectWithDynamicAttributes, IAction
+    public class DynamicAction : ObjectWithDynamicAttributesBase, IAction
     {
         public const string ATTRIBUTE_NAME = "name";
         public DynamicAction(string name) => SetAttribute(ATTRIBUTE_NAME, name);

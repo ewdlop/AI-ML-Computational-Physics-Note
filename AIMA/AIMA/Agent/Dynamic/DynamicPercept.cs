@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace AIMA.Agent.Dynamic
 {
-    public class DynamicPercept : ObjectWithDynamicAttributes, IPercept
+    public class DynamicPercept : ObjectWithDynamicAttributesBase, IPercept
     {
         public override string DescribeType => typeof(IPercept).Name;
         public DynamicPercept(object key1, object value1)

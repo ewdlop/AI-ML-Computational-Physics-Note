@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AIMA.Agent.Table
 {
-    public abstract record Table<RowHeaderType, ColumnHeaderType, ValueType>(List<RowHeaderType> RowHeaders,
+    public abstract record TableBase<RowHeaderType, ColumnHeaderType, ValueType>(List<RowHeaderType> RowHeaders,
         List<ColumnHeaderType> ColumnHeaders, Dictionary<RowHeaderType, Dictionary<ColumnHeaderType, ValueType>> Rows)
         : ITable<RowHeaderType, ColumnHeaderType, ValueType> where ValueType : struct
     {

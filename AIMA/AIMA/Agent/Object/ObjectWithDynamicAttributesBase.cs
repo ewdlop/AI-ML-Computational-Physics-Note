@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 
 namespace AIMA.Agent.Object
 {
-    public abstract class ObjectWithDynamicAttributes : IObjectWithDynamicAttributes
+    public abstract class ObjectWithDynamicAttributesBase : IObjectWithDynamicAttributes
     {
         private Dictionary<object, object> Attributes { get; init; } = new();
         public IReadOnlyDictionary<object, object> ReadOnlyAttributes => Attributes;
@@ -38,10 +37,10 @@ namespace AIMA.Agent.Object
         public virtual object RemoveAttribute(object key) => Attributes.Remove(key);
         public virtual IObjectWithDynamicAttributes Copy()
         {
-            ObjectWithDynamicAttributes copy = null;
+            ObjectWithDynamicAttributesBase copy = null;
             try
             {
-                copy = (ObjectWithDynamicAttributes)GetType().GetConstructor(Type.EmptyTypes).Invoke(null);
+                copy = (ObjectWithDynamicAttributesBase)GetType().GetConstructor(Type.EmptyTypes).Invoke(null);
                 foreach (object value in Attributes)
                 {
                     copy.Attributes.Add(value, Attributes[value]);
@@ -60,7 +59,7 @@ namespace AIMA.Agent.Object
             {
                 return base.Equals(o);
             }
-            return Attributes.Equals(((ObjectWithDynamicAttributes)o).Attributes);
+            return Attributes.Equals(((ObjectWithDynamicAttributesBase)o).Attributes);
         }
 
         public override int GetHashCode()
