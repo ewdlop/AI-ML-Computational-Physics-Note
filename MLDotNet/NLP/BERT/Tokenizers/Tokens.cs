@@ -2,9 +2,9 @@
 
 public class Tokens
 {
-    public const string Padding = "";
-    public const string Unknown = "[UNK]";
-    public const string Classification = "[CLS]";
-    public const string Separation = "[SEP]";
-    public const string Mask = "[MASK]";
+    public static readonly ReadOnlyMemory<char> Padding = "".AsMemory();
+    public static readonly ReadOnlyMemory<char> Unknown = "[UNK]".AsMemory();
+    public static readonly ReadOnlyMemory<char> Classification = "[CLS]".AsMemory();
+    public static readonly ReadOnlyMemory<char> Separation = "[SEP]".AsMemory();
+    public static readonly ReadOnlyMemory<char> Mask = "[MASK]".AsMemory();
 }

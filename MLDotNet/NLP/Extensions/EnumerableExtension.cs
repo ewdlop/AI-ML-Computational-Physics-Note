@@ -2,7 +2,7 @@
 
 public static partial class EnumerableExtension
 {
-    public static IEnumerable<(T Item, float probability)> Softmax<T>(this IEnumerable<T> collection, Func<T, float> scoreSelector)
+    public static IEnumerable<(T Item, float Probability)> Softmax<T>(this IEnumerable<T> collection, Func<T, float> scoreSelector)
     {
         double maxScore = collection.Max(scoreSelector);
         double sum = collection.Sum(r => Math.Exp(scoreSelector(r)) - maxScore);

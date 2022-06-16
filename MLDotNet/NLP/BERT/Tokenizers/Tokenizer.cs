@@ -1,4 +1,5 @@
 ﻿using NLP.Extensions;
+using System.Text;
 
 namespace NLP.BERT.Tokenizers;
 
@@ -17,7 +18,7 @@ public class Tokenizer
         foreach (string text in texts)
         {
             tokens.AddRange(text.AsTokenizeSentence());
-            tokens.Add(Tokens.Separation.AsMemory());
+            tokens.Add(Tokens.Separation);
         }
 
         IEnumerable<(ReadOnlyMemory<char> Token, int VocabularyIndex)> tokenAndIndex = tokens
@@ -38,7 +39,7 @@ public class Tokenizer
         {
             segmentIndexes.Add(segmentIndex);
 
-            if (token.Equals(Tokens.Separation.AsMemory()))
+            if (token.Equals(Tokens.Separation))
             {
                 segmentIndex++;
             }
@@ -46,6 +47,33 @@ public class Tokenizer
 
         return segmentIndexes;
     }
+
+    //not done, conflict with TokenizeSubwords
+    public static List<string> Untokenize(List<ReadOnlyMemory<char>> tokens)
+    {
+        StringBuilder currentTokenBuilder = new();
+        List<string>? untokens = new List<string>();
+        tokens.Reverse();
+
+        foreach (var token in tokens)
+        {
+            if (token.Span.StartsWith("##"))
+            {
+                currentTokenBuilder.Insert(0,token.ToString().Replace("##", ""));
+            }
+            else
+            {
+                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
+                untokens.Add(currentTokenBuilder.ToString());
+                currentTokenBuilder.Clear();
+            }
+        }
+
+        untokens.Reverse();
+
+        return untokens;
+    }
+
 
     private List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> TokenizeSubwords(ReadOnlyMemory<char> word)
     {
@@ -63,7 +91,7 @@ public class Tokenizer
                     .FirstOrDefault();
             if (prefix.Length == 0)
             {
-                tokens.Add((Tokens.Unknown.AsMemory(), _vocabulary.IndexOf(Tokens.Unknown.AsMemory())));
+                tokens.Add((Tokens.Unknown, _vocabulary.IndexOf(Tokens.Unknown)));
                 return tokens;
             }
 
@@ -73,7 +101,7 @@ public class Tokenizer
 
         if (word.IsEmpty && !tokens.Any())
         {
-            tokens.Add((Tokens.Unknown.AsMemory(), _vocabulary.IndexOf(Tokens.Unknown.AsMemory())));
+            tokens.Add((Tokens.Unknown, _vocabulary.IndexOf(Tokens.Unknown)));
         }
         return tokens;
     }
