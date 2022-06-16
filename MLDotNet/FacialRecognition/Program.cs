@@ -26,7 +26,6 @@ static async Task IdentifyInPersonGroup(IFaceClient client, string url, string r
         { "Family2-Man", new[] { "Family2-Man1.jpg", "Family2-Man2.jpg" } }
     };
 
-    string sourceImageFileName = "identification1.jpg";
     Console.WriteLine($"Create a person group ({personGroupId}).");
     await client.PersonGroup.CreateAsync(
         personGroupId,
@@ -66,6 +65,14 @@ static async Task IdentifyInPersonGroup(IFaceClient client, string url, string r
             {
                 continue;
             }
+
+
+            Console.WriteLine($"Add face to the person group person({groupedFace}) from image `{similarImage}`");
+            PersistedFace persistedFace = await client.PersonGroupPerson.AddFaceFromUrlAsync(personGroupId,
+                person.PersonId,
+                $"{url}{similarImage}",
+                similarImage,
+                cancellationToken: cancellationToken);
         }
     }
 
@@ -85,6 +92,7 @@ static async Task IdentifyInPersonGroup(IFaceClient client, string url, string r
     }
     Console.WriteLine();
 
+    string sourceImageFileName = "identification1.jpg";
     List<Guid> sourceFaceIds = new List<Guid>();
     // Detect faces from source image url.
     List<DetectedFace> detectedTestFaces = await DetectFaceRecognize(client, $"{url}{sourceImageFileName}", recognitionModel);
@@ -96,9 +104,11 @@ static async Task IdentifyInPersonGroup(IFaceClient client, string url, string r
     }
 
     // Identify the faces in a person group. 
-    IList<IdentifyResult> identifyResults = await client.Face.IdentifyAsync(sourceFaceIds, personGroupId, cancellationToken);
+    IList<IdentifyResult> identifyResults = await client.Face.IdentifyAsync(sourceFaceIds,
+        personGroupId,
+        cancellationToken: cancellationToken);
 
-    foreach (var identifyResult in identifyResults)
+    foreach (IdentifyResult identifyResult in identifyResults)
     {
         if (identifyResult.Candidates.Count == 0)
         {
