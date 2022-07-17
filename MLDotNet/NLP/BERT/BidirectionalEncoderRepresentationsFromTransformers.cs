@@ -14,6 +14,10 @@ public class BidirectionalEncoderRepresentationsFromTransformers
     private readonly Tokenizer _tokenizer;
     private readonly Predictor _predictor;
 
+    /// <summary>
+    /// Use Onnx
+    /// </summary>
+    /// <param name="bertModelPath"></param>
     public BidirectionalEncoderRepresentationsFromTransformers(string bertModelPath)
     {
         _vocabulary = new List<ReadOnlyMemory<char>>();
@@ -46,14 +50,14 @@ public class BidirectionalEncoderRepresentationsFromTransformers
          .Select(o => _vocabulary[(int)o])
          .ToList()?? new List<ReadOnlyMemory<char>>();
 
-        List<string> connectedTokens = Tokenizer.Untokenize(predictedTokens);
+        List<string> connectedTokens = predictedTokens.ToUntokenizedString();
 
         return (connectedTokens, probability);
     }
 
     private static BertInput BuildInput(List<(ReadOnlyMemory<char> Token, int Index, long SegmentIndex)> tokens)
     {
-        List<long> padding = Enumerable.Repeat(0L, 256 - tokens.Count).ToList();
+        IEnumerable<long> padding = Enumerable.Repeat(0L, 256 - tokens.Count);
         long[] tokenIndexes = tokens.Select(token => (long)token.Index).Concat(padding).ToArray();
         long[] segmentIndexes = tokens.Select(token => token.SegmentIndex).Concat(padding).ToArray();
         long[] inputMask = tokens.Select(o => 1L).Concat(padding).ToArray();

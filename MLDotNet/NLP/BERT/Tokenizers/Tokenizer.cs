@@ -13,10 +13,11 @@ public class Tokenizer
 
     public List<(ReadOnlyMemory<char> Token, int VocabularyIndex, long SegmentIndex)> Tokenize(params string[] texts)
     {
-        List<ReadOnlyMemory<char>> tokens = new();
+        List<ReadOnlyMemory<char>> tokens = new List<ReadOnlyMemory<char>>(texts.Length);
 
-        foreach (string text in texts)
+        for (int i = 0; i < texts.Length; i++)
         {
+            string text = texts[i];
             tokens.AddRange(text.AsTokenizeSentence());
             tokens.Add(Tokens.Separation);
         }
@@ -24,56 +25,11 @@ public class Tokenizer
         IEnumerable<(ReadOnlyMemory<char> Token, int VocabularyIndex)> tokenAndIndex = tokens
             .SelectMany(TokenizeSubwords);
 
-        IEnumerable<long> segmentIndexes = ToSegmentIndex(tokenAndIndex);
+        IEnumerable<long> segmentIndexes = tokenAndIndex.ToSegmentIndices();
 
         return tokenAndIndex.Zip(segmentIndexes, (tokenindex, segmentindex)
                             => (tokenindex.Token, tokenindex.VocabularyIndex, segmentindex)).ToList();
     }
-
-    public static IEnumerable<long> ToSegmentIndex(IEnumerable<(ReadOnlyMemory<char> token, int index)> tokens)
-    {
-        int segmentIndex = 0;
-        List<long> segmentIndexes = new List<long>();
-
-        foreach ((ReadOnlyMemory<char> token, int index) in tokens)
-        {
-            segmentIndexes.Add(segmentIndex);
-
-            if (token.Equals(Tokens.Separation))
-            {
-                segmentIndex++;
-            }
-        }
-
-        return segmentIndexes;
-    }
-
-    //not done, conflict with TokenizeSubwords
-    public static List<string> Untokenize(List<ReadOnlyMemory<char>> tokens)
-    {
-        StringBuilder currentTokenBuilder = new();
-        List<string>? untokens = new List<string>();
-        tokens.Reverse();
-
-        foreach (ReadOnlyMemory<char> token in tokens)
-        {
-            if (token.Span.StartsWith("##"))
-            {
-                currentTokenBuilder.Insert(0,token.ToString().Replace("##", ""));
-            }
-            else
-            {
-                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
-                untokens.Add(currentTokenBuilder.ToString());
-                currentTokenBuilder.Clear();
-            }
-        }
-
-        untokens.Reverse();
-
-        return untokens;
-    }
-
 
     private List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> TokenizeSubwords(ReadOnlyMemory<char> word)
     {
@@ -104,5 +60,52 @@ public class Tokenizer
             tokens.Add((Tokens.Unknown, _vocabulary.IndexOf(Tokens.Unknown)));
         }
         return tokens;
+    }
+}
+
+public static class TokenizerExtension
+{
+    public static IEnumerable<long> ToSegmentIndices(this IEnumerable<(ReadOnlyMemory<char> token, int index)> tokens)
+    {
+        int segmentIndex = 0;
+        List<long> segmentIndexes = new List<long>(tokens.Count());
+
+        foreach ((ReadOnlyMemory<char> token, int index) in tokens)
+        {
+            segmentIndexes.Add(segmentIndex);
+
+            if (token.Equals(Tokens.Separation))
+            {
+                segmentIndex++;
+            }
+        }
+
+        return segmentIndexes;
+    }
+
+    //not done, conflict with TokenizeSubwords
+    public static List<string> ToUntokenizedString(this List<ReadOnlyMemory<char>> tokens)
+    {
+        StringBuilder currentTokenBuilder = new();
+        List<string>? untokens = new List<string>();
+        tokens.Reverse();
+
+        foreach (ReadOnlyMemory<char> token in tokens)
+        {
+            if (token.Span.StartsWith("##"))
+            {
+                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
+            }
+            else
+            {
+                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
+                untokens.Add(currentTokenBuilder.ToString());
+                currentTokenBuilder.Clear();
+            }
+        }
+
+        untokens.Reverse();
+
+        return untokens;
     }
 }
