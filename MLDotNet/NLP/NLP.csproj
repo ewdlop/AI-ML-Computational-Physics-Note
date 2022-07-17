@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -19,6 +19,10 @@
     <PackageReference Include="Microsoft.ML.OnnxRuntime.Gpu" Version="1.11.0" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime.MKLML" Version="1.6.0" />
     <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Indexing\" />
   </ItemGroup>
 
 </Project>

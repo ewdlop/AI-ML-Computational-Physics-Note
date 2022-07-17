@@ -55,7 +55,7 @@ public class Tokenizer
         List<string>? untokens = new List<string>();
         tokens.Reverse();
 
-        foreach (var token in tokens)
+        foreach (ReadOnlyMemory<char> token in tokens)
         {
             if (token.Span.StartsWith("##"))
             {

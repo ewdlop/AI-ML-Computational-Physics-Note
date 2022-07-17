@@ -46,7 +46,7 @@ public class BidirectionalEncoderRepresentationsFromTransformers
          .Select(o => _vocabulary[(int)o])
          .ToList()?? new List<ReadOnlyMemory<char>>();
 
-        var connectedTokens = _tokenizer.Untokenize(predictedTokens);
+        List<string> connectedTokens = Tokenizer.Untokenize(predictedTokens);
 
         return (connectedTokens, probability);
     }
