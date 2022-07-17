@@ -2,8 +2,9 @@
 
 public static partial class StringExtension
 {
-    private static readonly Lazy<string[]> _delimiters = new(() => new string[] {" ", "   ", "\r\n" });
-    public static IEnumerable<ReadOnlyMemory<char>> AsSplitAndNotKeepDelimter(
+    private const string DELIMITERS = ".,;:\\/?!#$%()=+-*\"'–_`<>&^@{}[]|~'";
+    private static readonly Lazy<string[]> _delimiters = new(() => new string[3] {" ", "   ", "\r\n" });
+    public static IEnumerable<ReadOnlyMemory<char>> AsSplitMemoryAndNotKeepingDelimters(
         this string inputString, params char[] delimiters)
     {
         int start = 0;
@@ -20,7 +21,7 @@ public static partial class StringExtension
         }
     }
 
-    public static IEnumerable<string> ToSplitAndNotKeepDelimter(
+    public static IEnumerable<string> ToSplitStringsNotKeepingDelimters(
         this string inputString, params char[] delimiters)
     {
         int start = 0;
@@ -37,7 +38,7 @@ public static partial class StringExtension
         }
     }
 
-    public static IEnumerable<ReadOnlyMemory<char>> AsSplitAndKeepDelimter(
+    public static IEnumerable<ReadOnlyMemory<char>> AsSplitMemoryKeepingDelimter(
         this string inputString, params char[] delimiters)
     {
         int start = 0, index;
@@ -58,7 +59,7 @@ public static partial class StringExtension
         }
     }
 
-    public static IEnumerable<string> ToSplitAndKeepDelimter(
+    public static IEnumerable<string> ToSplitStringKeepingDelimters(
         this string inputString, params char[] delimiters)
     {
         int start = 0, index;
@@ -82,6 +83,55 @@ public static partial class StringExtension
     public static IEnumerable<ReadOnlyMemory<char>> AsTokenizeSentence(this string text)
     {
         return text.Split(_delimiters.Value, StringSplitOptions.None)
-            .SelectMany(o => o.AsSplitAndKeepDelimter(".,;:\\/?!#$%()=+-*\"'–_`<>&^@{}[]|~'".ToArray()));
+            .SelectMany(o => o.AsSplitMemoryKeepingDelimter(DELIMITERS.ToArray()));
+    }
+
+    /// <summary>
+    /// Optimal Damerau–Levenshtein distance.
+    /// https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+    /// The number of edit operations needed to make the strings equal under the condition that no substring is edited more than once.
+    /// Triangle inequality does not hold.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static int OptimalDamerauLevenshteinDistance(this string s, string t)
+    {
+        int n = s.Length;
+        int m = t.Length;
+        int[,] d = new int[n + 1, m + 1];
+
+        // Step 1
+        if (n == 0) return m;
+        if (m == 0) return n;
+
+        // Step 2
+        for (int i = 0; i <= n; d[i, 0] = i++){}
+        for (int j = 0; j <= m; d[0, j] = j++){}
+
+        // Step 3
+        for (int i = 1; i <= n; i++)
+        {
+            //Step 4
+            for (int j = 1; j <= m; j++)
+            {
+                // Step 5
+                int cost = (t[j-1] == s[i-1]) ? 0 : 1;
+
+                // Step 6
+                d[i, j] = Math.Min(
+                    Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
+                    d[i - 1, j - 1] + cost);
+
+                // Step 7
+                if (i > 1 && j > 1 && t[j - 1] == s[i - 2] && s[i - 1] == t[j - 2])
+                {
+                    d[i, j] = Math.Min(d[i, j], d[i - 2, j - 2] + cost);
+                }
+            }
+        }
+
+        // Step 8
+        return d[n, m];
     }
 }

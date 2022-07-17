@@ -6,11 +6,11 @@ public class BertPredictions
 {
     [VectorType(1, 256)]
     [ColumnName("unstack:1")]
-    public float[]? EndLogits { get; set; }
+    public float[]? EndLogistics { get; set; }
 
     [VectorType(1, 256)]
     [ColumnName("unstack:0")]
-    public float[]? StartLogits { get; set; }
+    public float[]? StartLogistics { get; set; }
 
     [VectorType(1)]
     [ColumnName("unique_ids:0")]

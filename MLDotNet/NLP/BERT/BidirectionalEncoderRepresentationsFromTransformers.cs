@@ -72,12 +72,12 @@ public class BidirectionalEncoderRepresentationsFromTransformers
 
     private static (int StartIndex, int EndIndex, float Probability) GetBestPrediction(BertPredictions result, int minIndex, int topN, int maxLength)
     {
-        IEnumerable<(float Logit, int Index)> bestStartLogits = result.StartLogits?
+        IEnumerable<(float Logit, int Index)> bestStartLogits = result.StartLogistics?
             .Select((logit, index) => (Logit: logit, Index: index))
             .OrderByDescending(o => o.Logit)
             .Take(topN) ?? Enumerable.Empty<(float Logit, int Index)>();
 
-        IEnumerable<(float Logit, int Index)> bestEndLogits = result.EndLogits?
+        IEnumerable<(float Logit, int Index)> bestEndLogits = result.EndLogistics?
             .Select((logit, index) => (Logit: logit, Index: index))
             .OrderByDescending(o => o.Logit)
             .Take(topN) ?? Enumerable.Empty<(float Logit, int Index)>();

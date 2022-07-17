@@ -23,7 +23,7 @@ public class Tokenizer
         }
 
         IEnumerable<(ReadOnlyMemory<char> Token, int VocabularyIndex)> tokenAndIndex = tokens
-            .SelectMany(TokenizeSubwords);
+            .SelectMany(TokenizeSubwords2);
 
         IEnumerable<long> segmentIndexes = tokenAndIndex.ToSegmentIndices();
 
@@ -61,51 +61,71 @@ public class Tokenizer
         }
         return tokens;
     }
-}
 
-public static class TokenizerExtension
-{
-    public static IEnumerable<long> ToSegmentIndices(this IEnumerable<(ReadOnlyMemory<char> token, int index)> tokens)
+    private List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> TokenizeSubwords2(ReadOnlyMemory<char> word)
     {
-        int segmentIndex = 0;
-        List<long> segmentIndexes = new List<long>(tokens.Count());
-
-        foreach ((ReadOnlyMemory<char> token, int index) in tokens)
+        if (_vocabulary.Contains(word))
         {
-            segmentIndexes.Add(segmentIndex);
-
-            if (token.Equals(Tokens.Separation))
+            return new List<(ReadOnlyMemory<char>, int)> { (word, _vocabulary.IndexOf(word)) };
+        }
+        List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> tokens = new();
+        ReadOnlyMemory<char> remaining = word;
+        while (!word.IsEmpty && !remaining.IsEmpty)
+        {
+            (ReadOnlyMemory<char> prefix, int index) = _vocabulary.Where(v => v.Span.StartsWith(word.Span))
+                    .Select((p, i) => (p, i))
+                    .OrderByDescending(o => o.p.Length)
+                    .FirstOrDefault();
+            if (prefix.Length == 0)
             {
-                segmentIndex++;
+                tokens.Add((Tokens.Unknown, _vocabulary.IndexOf(Tokens.Unknown)));
+                return tokens;
             }
+
+            remaining = new StringBuilder(remaining[prefix.Length..].ToString())
+                .Replace(prefix.ToString(), "##").ToString().AsMemory();
+            tokens.Add((prefix, index));
         }
 
-        return segmentIndexes;
+        if (word.IsEmpty && !tokens.Any())
+        {
+            tokens.Add((Tokens.Unknown, _vocabulary.IndexOf(Tokens.Unknown)));
+        }
+        return tokens;
     }
 
-    //not done, conflict with TokenizeSubwords
-    public static List<string> ToUntokenizedString(this List<ReadOnlyMemory<char>> tokens)
+    private List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> TokenizeSubwordsWithMarshalling(ReadOnlyMemory<char> word)
     {
-        StringBuilder currentTokenBuilder = new();
-        List<string>? untokens = new List<string>();
-        tokens.Reverse();
-
-        foreach (ReadOnlyMemory<char> token in tokens)
+        if (_vocabulary.Contains(word))
         {
-            if (token.Span.StartsWith("##"))
+            return new List<(ReadOnlyMemory<char>, int)> { (word, _vocabulary.IndexOf(word)) };
+        }
+        List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> tokens = new();
+        ReadOnlyMemory<char> remaining = word;
+        while (!word.IsEmpty && !remaining.IsEmpty)
+        {
+            (ReadOnlyMemory<char> prefix, int index) = _vocabulary.Where(v => v.Span.StartsWith(word.Span))
+                    .Select((p, i) => (p, i))
+                    .OrderByDescending(o => o.p.Length)
+                    .FirstOrDefault();
+            if (prefix.Length == 0)
             {
-                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
+                tokens.Add((Tokens.Unknown, _vocabulary.IndexOf(Tokens.Unknown)));
+                return tokens;
             }
-            else
+
+            if (System.Runtime.InteropServices.MemoryMarshal.TryGetString(remaining[prefix.Length..], out string? remainingString, out int start, out int length))
             {
-                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
-                untokens.Add(currentTokenBuilder.ToString());
-                currentTokenBuilder.Clear();
+                remaining = remainingString.Replace(prefix.ToString(), "##").ToString().AsMemory();
             }
+
+            tokens.Add((prefix, index));
         }
 
-        untokens.Reverse();
-
-        return untokens;
+        if (word.IsEmpty && !tokens.Any())
+        {
+            tokens.Add((Tokens.Unknown, _vocabulary.IndexOf(Tokens.Unknown)));
+        }
+        return tokens;
     }
 }
