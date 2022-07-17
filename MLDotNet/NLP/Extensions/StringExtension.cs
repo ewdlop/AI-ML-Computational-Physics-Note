@@ -89,6 +89,9 @@ public static partial class StringExtension
     /// <summary>
     /// Optimal Damerau–Levenshtein distance.
     /// https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+    /// see also: https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance
+    /// default is case sensitive
+    /// Levenshtein distance is a measure of the difference between two sequences.
     /// The number of edit operations needed to make the strings equal under the condition that no substring is edited more than once.
     /// Triangle inequality does not hold.
     /// </summary>
@@ -133,5 +136,89 @@ public static partial class StringExtension
 
         // Step 8
         return d[n, m];
+    }
+
+    /// <summary>
+    /// Knuth–Morris–Pratt algorithm for string matching.
+    /// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+    /// string matching algorithm that finds the first occurrence of a pattern in a text.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static (bool found, int? indice) KMP(this string s, string t)
+    {
+        int n = s.Length;
+        int m = t.Length;
+        int[] pi = new int[m];
+        int i = 0;
+        int j = 0;
+        while (i < n)
+        {
+            if (t[j] == s[i])
+            {
+                j++;
+                i++;
+            }
+            if (j == m)
+            {
+                return (true, i - j);
+            }
+            else if (i < n && t[j] != s[i])
+            {
+                if (j != 0)
+                {
+                    j = pi[j - 1];
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+        return (false, null);
+    }
+
+    /// <summary>
+    /// Knuth–Morris–Pratt algorithm for string matching.
+    /// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+    /// string matching algorithm that finds the first occurrence of a pattern in a text.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool TryGetKMP(this string s, string t, out int? indice)
+    {
+        int n = s.Length;
+        int m = t.Length;
+        int[] pi = new int[m];
+        int i = 0;
+        int j = 0;
+        while (i < n)
+        {
+            if (t[j] == s[i])
+            {
+                j++;
+                i++;
+            }
+            if (j == m)
+            {
+                indice = i - j;
+                return true;
+            }
+            else if (i < n && t[j] != s[i])
+            {
+                if (j != 0)
+                {
+                    j = pi[j - 1];
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+        indice = null;
+        return false;
     }
 }
