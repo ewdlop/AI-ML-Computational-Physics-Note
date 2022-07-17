@@ -29,7 +29,7 @@ public class BidirectionalEncoderRepresentationsFromTransformers
 
     public async Task ReadVocabularyFilePAsync(string vocabularyFilePath)
     {
-        await foreach (ReadOnlyMemory<char> vocab in FileReader.ReadFileAsync(vocabularyFilePath))
+        await foreach (ReadOnlyMemory<char> vocab in FileReaderExtension.ReadLinesAsMemoryAsync(vocabularyFilePath))
         {
             _vocabulary.Add(vocab);
         }
