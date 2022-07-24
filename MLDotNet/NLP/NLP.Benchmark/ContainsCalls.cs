@@ -5,26 +5,13 @@ using NLP.Extensions;
 [MemoryDiagnoser]
 [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net60)]
 [RPlotExporter]
-public class IndexOfCalls
+public class ContainsCalls
 {
     [Benchmark]
-    public void Normal()
+    public void Test()
     {
-        int index = TEST.IndexOf("123");
+        TEST.Contains("123");
     }
-
-    [Benchmark]
-    public void IndexOf()
-    {
-        (bool found, int? indice) = TEST.KMPIndexOf("123");
-    }
-
-    [Benchmark]
-    public void IndexOf2()
-    {
-         int indice = TEST.KMPIndexOf2("123");
-    }
-
 
     public const string TEST =
         "TestTestTestTestTestTestTestTestTestTestTestTestTest" +

@@ -1,2 +1,2 @@
 ﻿using BenchmarkDotNet.Running;
-BenchmarkRunner.Run<IndexOfCalls>();
+BenchmarkRunner.Run<SplitCall>();
