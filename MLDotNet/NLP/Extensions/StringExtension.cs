@@ -146,7 +146,7 @@ public static partial class StringExtension
     /// <param name="s"></param>
     /// <param name="t"></param>
     /// <returns></returns>
-    public static (bool found, int? indice) KMP(this string s, string t)
+    public static (bool found, int? indice) KMPIndexOf(this string s, string t)
     {
         int n = s.Length;
         int m = t.Length;
@@ -177,6 +177,47 @@ public static partial class StringExtension
             }
         }
         return (false, null);
+    }
+
+    /// <summary>
+    /// Knuth–Morris–Pratt algorithm for string matching.
+    /// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+    /// string matching algorithm that finds the first occurrence of a pattern in a text.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static int KMPIndexOf2(this string s, string t)
+    {
+        int n = s.Length;
+        int m = t.Length;
+        int[] pi = new int[m];
+        int i = 0;
+        int j = 0;
+        while (i < n)
+        {
+            if (t[j] == s[i])
+            {
+                j++;
+                i++;
+            }
+            if (j == m)
+            {
+                return i - j;
+            }
+            else if (i < n && t[j] != s[i])
+            {
+                if (j != 0)
+                {
+                    j = pi[j - 1];
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+        return -1;
     }
 
     /// <summary>

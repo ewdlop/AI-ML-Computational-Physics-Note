@@ -8,8 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NLP.Benchmark\**" />
     <Compile Remove="NLPTest\**" />
+    <EmbeddedResource Remove="NLP.Benchmark\**" />
     <EmbeddedResource Remove="NLPTest\**" />
+    <None Remove="NLP.Benchmark\**" />
     <None Remove="NLPTest\**" />
   </ItemGroup>
 
