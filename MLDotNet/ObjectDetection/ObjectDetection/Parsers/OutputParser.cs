@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace ObjectDetection.Parser;
 
-public class OutputParser
+public static class OutputParser
 {
     public const int ROW_COUNT = 13;
     public const int COL_COUNT = 13;
@@ -52,6 +52,13 @@ public class OutputParser
         Color.DarkTurquoise
     });
 
+    /// <summary>
+    /// One dimensional Model
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="channel"></param>
+    /// <returns></returns>
     private static int GetOffset(int x, int y, int channel)
     {
         return (channel * CHANNEL_STRIDE) + (y * COL_COUNT) + x;
@@ -70,7 +77,7 @@ public class OutputParser
 
     public static double GetConfidence(float[] modelOutput, int x, int y, int channel)
     {
-        return MathHelper.Sigmoid(modelOutput[GetOffset(x, y, channel + 4)]);
+        return MathHelper.Sigmoid(modelOutput[GetOffset(x, y, channel + 4)]); //
     }
 
     public static CellDimensions MapBoundingBoxToCell(int x, int y, int box, BoundingBoxDimensions boxDimensions)
@@ -79,8 +86,8 @@ public class OutputParser
         {
             X = (x + MathHelper.Sigmoid(boxDimensions.X)) * CELL_WIDTH,
             Y = (y + MathHelper.Sigmoid(boxDimensions.Y)) * CELL_HEIGHT,
-            Width = Math.Exp(boxDimensions.Width) * CELL_WIDTH * Anchors.Value[box * 2],
-            Height = Math.Exp(boxDimensions.Height) * CELL_HEIGHT * Anchors.Value[box * 2 + 1],
+            Width = Math.Exp(boxDimensions.Width) * CELL_WIDTH * Anchors.Value[box * 2], //const * exp(h)?  blow up?
+            Height = Math.Exp(boxDimensions.Height) * CELL_HEIGHT * Anchors.Value[box * 2 + 1],//const * exp(w)?  blow up?
         };
     }
 
@@ -94,15 +101,15 @@ public class OutputParser
         }
         return MathHelper.Softmax(predictedClasses);
     }
-
-
-    public static (int, double) GetTopResult(double[] predictedClasses)
-    {
-        return predictedClasses
+    
+    public static (int, double) GetTopResult(double[]? predictedClasses) => predictedClasses is null
+            ? throw new ArgumentNullException(nameof(predictedClasses))
+            : predictedClasses.Length == 0
+            ? throw new ArgumentOutOfRangeException(nameof(predictedClasses), "predictedClasses is empty")
+            : ((int, double))predictedClasses
             .Select((predictedClass, index) => (Index: index, Value: predictedClass))
             .OrderByDescending(result => result.Value)
             .First();
-    }
 
     public static double IntersectionOverUnion(RectangleF boundingBoxA, RectangleF boundingBoxB)
     {
@@ -139,13 +146,15 @@ public class OutputParser
                     double confidence = GetConfidence(modelOutputs, row, column, channel);
                     BoundingBoxDimensions boundingBoxDimensions = ExtractBoundingBoxDimensions(modelOutputs, row, column, channel);
                     CellDimensions mappedBoundingBox = MapBoundingBoxToCell(row, column, box, boundingBoxDimensions);
-                    if (confidence < threshold)
-                        continue;
+                    if (confidence < threshold) continue;
                     double[] predictedClasses = ExtractClasses(modelOutputs, row, column, channel);
+                    if (Labels.Value.Length < BOXES_PER_CELL || ClassColors.Value.Length < BOXES_PER_CELL)
+                    {
+                        Console.WriteLine("Warning: Either Label or ClassColor size is less than the number of boxes per cell");
+                    }
                     (int topResultIndex, double topResultScore) = GetTopResult(predictedClasses);
                     double topScore = topResultScore * confidence;
-                    if (topScore < threshold)
-                        continue;
+                    if (topScore < threshold) continue;
                     boxes.Add(new BoundingBox()
                     {
                         Dimensions = new BoundingBoxDimensions
@@ -156,8 +165,8 @@ public class OutputParser
                             Height = mappedBoundingBox.Height,
                         },
                         Confidence = topScore,
-                        Label = Labels.Value[topResultIndex],
-                        BoxColor = ClassColors.Value[topResultIndex]
+                        Label = Labels.Value[topResultIndex % Labels.Value.Length],
+                        BoxColor = ClassColors.Value[topResultIndex % Labels.Value.Length]
                     });
                 }
             }
@@ -166,7 +175,46 @@ public class OutputParser
     }
     public static IList<BoundingBox> FilterBoundingBoxes(IList<BoundingBox> boxes, int limit, float threshold)
     {
-        return null;
-    }
+        int activeCount = boxes.Count;
+        bool[]? isActiveBoxes = new bool[boxes.Count];
 
+        for (int i = 0; i < isActiveBoxes.Length; i++)
+        {
+            isActiveBoxes[i] = true;
+        }
+
+        (BoundingBox Box, int Index)[] sortedBoxes = boxes.Select((b, i) => (Box : b, Index : i ))
+                    .OrderByDescending(b => b.Box.Confidence)
+                    .ToArray();
+
+        List<BoundingBox> results = new List<BoundingBox>();
+
+        for (int i = 0; i < boxes.Count; i++)
+        {
+            if (isActiveBoxes[i])
+            {
+                var boxA = sortedBoxes[i].Box;
+                results.Add(boxA);
+
+                if (results.Count >= limit) break;
+
+                for (var j = i + 1; j < boxes.Count; j++)
+                {
+                    if (isActiveBoxes[j])
+                    {
+                        BoundingBox boxB = sortedBoxes[j].Box;
+
+                        if (IntersectionOverUnion(boxA.Rect.Value, boxB.Rect.Value) > threshold)
+                        {
+                            isActiveBoxes[j] = false;
+                            if (activeCount-- <= 0) break;
+                        }
+                    }
+                }
+
+                if (activeCount <= 0) break;
+            }
+        }
+        return results;
+    }
 }

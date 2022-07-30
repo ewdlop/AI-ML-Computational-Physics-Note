@@ -14,7 +14,6 @@ public static class MathHelper
         IEnumerable<double> exp = values.Select(v => Math.Exp(v - maxVal));
         double sumExp = exp.Sum();
 
-        return exp.Select(v => (v / sumExp)).ToArray();
+        return exp.Select(v => v / sumExp).ToArray();
     }
-
 }

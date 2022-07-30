@@ -2,16 +2,16 @@
 
 namespace ObjectDetection.Data;
 
-public class BoundingBox
+public record BoundingBox
 {
-    public BoundingBoxDimensions Dimensions { get; set; }
+    public BoundingBoxDimensions Dimensions { get; init; }
 
-    public string Label { get; set; }
+    public string Label { get; init; }
 
-    public double Confidence { get; set; }
+    public double Confidence { get; init; }
 
     public Lazy<RectangleF> Rect => new(() =>
         new RectangleF((float)Dimensions.X, (float)Dimensions.Y, (float)Dimensions.Width, (float)Dimensions.Height));
 
-    public Color BoxColor { get; set; }
+    public Color BoxColor { get; init; }
 }
