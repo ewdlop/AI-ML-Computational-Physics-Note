@@ -28,7 +28,9 @@ public class OnnxModelScorer
     private readonly MLContext _mlContext;
 
     private IList<BoundingBox> _boundingBoxes = new List<BoundingBox>();
-    public OnnxModelScorer(string imagesFolder, string modelLocation, MLContext mlContext)
+    public OnnxModelScorer(string imagesFolder,
+                           string modelLocation,
+                           MLContext mlContext)
     {
         _imagesFolder = imagesFolder;
         _modelLocation = modelLocation;
@@ -45,7 +47,7 @@ public class OnnxModelScorer
 
         EstimatorChain<Microsoft.ML.Transforms.Onnx.OnnxTransformer> pipeline = _mlContext.Transforms.LoadImages(
             outputColumnName: "image",
-            imageFolder: "",
+            imageFolder: string.Empty,
             inputColumnName: nameof(ImageNetData.ImagePath))
                 .Append(_mlContext.Transforms.ResizeImages(
                     outputColumnName: "image",
