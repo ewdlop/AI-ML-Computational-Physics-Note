@@ -3,9 +3,42 @@ using ImageSegmentation.Extractors;
 using OpenCvSharp;
 using SkiaSharp;
 using System.Collections.Immutable;
-//DectectFacesAsync();
-CropImage();
 
+
+
+//https://debuggercafe.com/image-foreground-extraction-using-opencv-contour-detection/
+WaterShed();
+//DectectFacesAsync();
+//CropImage();
+
+
+//https://docs.opencv.org/4.x/d3/db4/tutorial_py_watershed.html
+//not finisheed
+//might not work with bright hair.....
+void WaterShed()
+{
+    string assetsPath = Path.Combine(Environment.CurrentDirectory, "Assets");
+    string imagesPath = Path.Combine(assetsPath, "Images");
+    string imagePath = Path.Combine(imagesPath, "fauci.jpg");
+
+    using Mat image = Cv2.ImRead(imagePath);
+    using Mat gray = new Mat();
+    using Mat threshold = new Mat();
+    using Mat morphology = new Mat();
+    Cv2.CvtColor(image, gray, ColorConversionCodes.BGR2GRAY);
+    Cv2.ImShow("test", gray);
+    Cv2.WaitKey(0);
+    Cv2.Threshold(gray, threshold, 150, 255, ThresholdTypes.BinaryInv | ThresholdTypes.Otsu);
+    Cv2.ImShow("test", threshold);
+    Cv2.WaitKey(0);
+    Cv2.MorphologyEx(
+        threshold,
+        morphology,
+        MorphTypes.Open,
+        new Mat(3, 3, MatType.CV_8U, new byte[] { 0, 1, 0, 1, 1, 1, 0, 1, 0 }));
+    Cv2.ImShow("test", morphology);
+    Cv2.WaitKey(0);
+}
 void CropImage()
 {
     string assetsPath = Path.Combine(Environment.CurrentDirectory, "Assets");
@@ -50,7 +83,6 @@ void CropImage()
     //Cv2.WaitKey(0);
 
 }
-
 async Task DectectFacesAsync()
 {
     string assetsPath = Path.Combine(Environment.CurrentDirectory, "Assets");
