@@ -33,5 +33,6 @@ public class UnitTest1
     public void Test2()
     {
         Assert.Equal(3, "CA".OptimalDamerauLevenshteinDistance("ABC"));
+        Assert.Equal(3, "CA".OptimalDamerauLevenshteinDistance2("ABC"));
     }
 }

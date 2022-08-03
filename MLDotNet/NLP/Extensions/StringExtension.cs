@@ -94,6 +94,7 @@ public static partial class StringExtension
     /// Levenshtein distance is a measure of the difference between two sequences.
     /// The number of edit operations needed to make the strings equal under the condition that no substring is edited more than once.
     /// Triangle inequality does not hold.
+    /// Two Dimension matrix is used to calculate the distance.
     /// </summary>
     /// <param name="s"></param>
     /// <param name="t"></param>
@@ -136,6 +137,59 @@ public static partial class StringExtension
 
         // Step 8
         return d[n, m];
+    }
+
+    /// <summary>
+    /// Optimal Damerau–Levenshtein distance.
+    /// https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+    /// see also: https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance
+    /// default is case sensitive
+    /// Levenshtein distance is a measure of the difference between two sequences.
+    /// The number of edit operations needed to make the strings equal under the condition that no substring is edited more than once.
+    /// Triangle inequality does not hold.
+    /// One dimensional Array is used to store the distance matrix.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static int OptimalDamerauLevenshteinDistance2(this string s, string t)
+    {
+        int n = s.Length;
+        int m = t.Length;
+        int[] d = new int[(n+1) * (m + 1)];
+
+        // Step 1
+        if (n == 0) return m;
+        if (m == 0) return n;
+
+        // Step 2
+        for (int i = 0; i <= n; d[i*m+1] = i++) { }
+        for (int j = 0; j <= m; d[j] = j++) { }
+
+        // Step 3
+        for (int i = 1; i <= n; i++)
+        {
+            //Step 4
+            for (int j = 1; j <= m; j++)
+            {
+                // Step 5
+                int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
+
+                // Step 6
+                d[i*(m+1)+j] = Math.Min(
+                    Math.Min(d[(i - 1)*(m+1)+j] + 1, d[i*(m+1)+j - 1] + 1),
+                    d[(i - 1) * (m + 1) + j - 1] + cost);
+
+                // Step 7
+                if (i > 1 && j > 1 && t[j - 1] == s[i - 2] && s[i - 1] == t[j - 2])
+                {
+                    d[i * (m + 1) + j] = Math.Min(d[i * (m + 1) + j], d[(i - 2) * (m + 1) + j - 2] + cost);
+                }
+            }
+        }
+
+        // Step 8
+        return d[n * (m + 1) + m];
     }
 
     /// <summary>
