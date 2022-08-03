@@ -6,12 +6,12 @@ namespace ObjectDetection.Parser;
 
 public static class OutputParser
 {
-    public const int ROW_COUNT = 13;
-    public const int COL_COUNT = 13;
-    public const int CHANNEL_COUNT = 125;
+    public const int ROW_COUNT = 13; //output layer row count
+    public const int COL_COUNT = 13; // output layer column ocunt
+    public const int CHANNEL_COUNT = (CLASS_COUNT + BOX_INFO_FEATURE_COUNT) * BOXES_PER_CELL;
     public const int BOXES_PER_CELL = 5;
     public const int BOX_INFO_FEATURE_COUNT = 5;
-    public const int CLASS_COUNT = 20;
+    public const int CLASS_COUNT = 20; //class probabilities for each of the 20 classes predicted by the model.
     public const float CELL_WIDTH = 32;
     public const float CELL_HEIGHT = 32;
     private const int CHANNEL_STRIDE = ROW_COUNT * COL_COUNT;
@@ -86,8 +86,8 @@ public static class OutputParser
         {
             X = (x + MathHelper.Sigmoid(boxDimensions.X)) * CELL_WIDTH,
             Y = (y + MathHelper.Sigmoid(boxDimensions.Y)) * CELL_HEIGHT,
-            Width = Math.Exp(boxDimensions.Width) * CELL_WIDTH * Anchors.Value[box * 2], //const * exp(h)?  blow up?
-            Height = Math.Exp(boxDimensions.Height) * CELL_HEIGHT * Anchors.Value[box * 2 + 1],//const * exp(w)?  blow up?
+            Width = Math.Exp(boxDimensions.Width) * CELL_WIDTH * Anchors.Value[box * 2],
+            Height = Math.Exp(boxDimensions.Height) * CELL_HEIGHT * Anchors.Value[box * 2 + 1]
         };
     }
 
@@ -142,6 +142,7 @@ public static class OutputParser
             {
                 for (int box = 0; box < BOXES_PER_CELL; box++)
                 {
+                    //0,25,50..,125
                     int channel = box * (CLASS_COUNT + BOX_INFO_FEATURE_COUNT);
                     double confidence = GetConfidence(modelOutputs, row, column, channel);
                     BoundingBoxDimensions boundingBoxDimensions = ExtractBoundingBoxDimensions(modelOutputs, row, column, channel);
