@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorchSharp", "TorchSharp.csproj", "{632B5FA5-AD91-47B2-9673-82892E37E96E}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DiffSharpProject", "DiffSharpProject.fsproj", "{F99CA7C8-55E1-483B-9671-946EEE335AB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{632B5FA5-AD91-47B2-9673-82892E37E96E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{632B5FA5-AD91-47B2-9673-82892E37E96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{632B5FA5-AD91-47B2-9673-82892E37E96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{632B5FA5-AD91-47B2-9673-82892E37E96E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F99CA7C8-55E1-483B-9671-946EEE335AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F99CA7C8-55E1-483B-9671-946EEE335AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F99CA7C8-55E1-483B-9671-946EEE335AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F99CA7C8-55E1-483B-9671-946EEE335AB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0D317470-8E1A-4E46-B359-DE309E926A6E}
+		SolutionGuid = {E5102797-5D39-4BE8-ACC6-319FC9ED5C8F}
 	EndGlobalSection
 EndGlobal

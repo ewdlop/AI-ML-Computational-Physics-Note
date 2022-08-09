@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="libtorch-cuda-11.3-win-x64" Version="1.11.0.1" />
+    <PackageReference Include="TorchSharp" Version="0.97.1" />
   </ItemGroup>
 
 </Project>
