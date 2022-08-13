@@ -3,11 +3,11 @@ using System.Text.Json;
 
 Console.WriteLine("");
 
-Bert model = new Bert("vocab.txt", "bertsquad-10.onnx");
+BidirectionalEncoderRepresentationsFromTransformers model = new BidirectionalEncoderRepresentationsFromTransformers("vocab.txt", "bertsquad-10.onnx");
 
-var (tokens, probability) = model.Predict(
-    "Jim is walking through the woods.",
-    "What is his name?");
+(List<string> tokens, float probability) = model.Predict(
+    "Jack is walking through the woods. Jack has a gorgeous girlfriend named Mary,",
+    "Who is his girlfriend?");
 
 Console.WriteLine(JsonSerializer.Serialize(new
 {

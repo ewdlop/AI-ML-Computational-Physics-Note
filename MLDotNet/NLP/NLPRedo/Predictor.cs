@@ -13,8 +13,5 @@ public class Predictor
         _predictionEngine = _mLContext.Model.CreatePredictionEngine<BertInput, BertPredictions>(trainedModel);
     }
 
-    public BertPredictions Predict(BertInput encodedInput)
-    {
-        return _predictionEngine.Predict(encodedInput);
-    }
+    public BertPredictions Predict(BertInput encodedInput) => _predictionEngine.Predict(encodedInput);
 }

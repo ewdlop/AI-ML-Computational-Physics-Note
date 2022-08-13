@@ -7,9 +7,11 @@ public class Tokenizer
     private const string COMMON_DELIMETERS = ".,;:\\/?!#$%()=+-*\"'–_`<>&^@{}[]|~'";
     private const string PREFIX_LABEL = "##";
     private const string CARRIAGE_RETURN_NEXT_LINE = "\r\n";
+    private const string WHITE_SPACE = " ";
+    private const string DOUBLE_WHITE_SPACE = "   ";
     private static readonly string PREFIX_LABEL_REPLACE = string.Empty;
     private readonly List<string> _vocabulary;
-
+    private static readonly string[] Separator = new string[] { WHITE_SPACE, DOUBLE_WHITE_SPACE, CARRIAGE_RETURN_NEXT_LINE
     public Tokenizer(List<string> vocabulary)
     {
         _vocabulary = vocabulary;
@@ -119,7 +121,7 @@ public class Tokenizer
     private static IEnumerable<string> TokenizeSentence(string text)
     {
         // remove spaces and split the , . : ; etc..
-        return text.Split(new string[] { " ", "   ", CARRIAGE_RETURN_NEXT_LINE }, StringSplitOptions.None)
+        return text.Split(Separator, StringSplitOptions.None)
             .SelectMany(o => o.SplitAndKeep(COMMON_DELIMETERS.ToArray()))
             .Select(o => o.ToLower());
     }

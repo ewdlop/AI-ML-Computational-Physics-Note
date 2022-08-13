@@ -1,13 +1,16 @@
 ﻿namespace NLPRedo;
 
-public class Bert
+/// <summary>
+/// Using OnnxModel
+/// </summary>
+public class BidirectionalEncoderRepresentationsFromTransformers
 {
     private readonly List<string> _vocabulary;
 
     private readonly Tokenizer _tokenizer;
     private readonly Predictor _predictor;
 
-    public Bert(string vocabularyFilePath, string bertModelPath)
+    public BidirectionalEncoderRepresentationsFromTransformers(string vocabularyFilePath, string bertModelPath)
     {
         _vocabulary = FileReader.ReadFile(vocabularyFilePath);
         _tokenizer = new Tokenizer(_vocabulary);

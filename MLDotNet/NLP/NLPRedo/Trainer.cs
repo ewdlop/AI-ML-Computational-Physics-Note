@@ -6,14 +6,14 @@ public class Trainer
 {
     private readonly MLContext _mlContext;
 
-    public Trainer()
+    public Trainer(int seed = 11)
     {
-        _mlContext = new MLContext(11);
+        _mlContext = new MLContext(seed);
     }
 
     public ITransformer BuidAndTrain(string bertModelPath, bool useGpu)
     {
-        var pipeline = _mlContext.Transforms
+        Microsoft.ML.Transforms.Onnx.OnnxScoringEstimator pipeline = _mlContext.Transforms
                         .ApplyOnnxModel(modelFile: bertModelPath,
                                         outputColumnNames: new[] { "unstack:1",
                                                                    "unstack:0",

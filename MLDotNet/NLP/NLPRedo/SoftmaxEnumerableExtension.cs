@@ -6,8 +6,8 @@ public static class EnumerableExtension
         this IEnumerable<T> collection,
         Func<T, float> scoreSelector)
     {
-        var maxScore = collection.Max(scoreSelector);
-        var sum = collection.Sum(r => Math.Exp(scoreSelector(r) - maxScore));
+        float maxScore = collection.Max(scoreSelector);
+        double sum = collection.Sum(r => Math.Exp(scoreSelector(r) - maxScore));
 
         return collection.Select(r => (r, (float)(Math.Exp(scoreSelector(r) - maxScore) / sum)));
     }

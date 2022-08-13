@@ -6,7 +6,7 @@ public static class FileReader
     {
         List<string> result = new();
 
-        using (StreamReader reader = new StreamReader(filename))
+        using (StreamReader reader = new(filename))
         {
             string? line;
 

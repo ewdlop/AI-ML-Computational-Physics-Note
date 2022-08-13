@@ -3,6 +3,8 @@
 using NLP.BERT;
 using System.Text.Json;
 
+//IReadonlyMemory implmeent doesnt work 
+
 string context = "Jim is walking throught the woods.";
 string question = "What is his name?";
 BidirectionalEncoderRepresentationsFromTransformers model = 
