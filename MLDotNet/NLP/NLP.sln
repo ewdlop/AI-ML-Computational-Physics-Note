@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLP.Benchmark", "NLP.Benchm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformationRetrieval", "InformationRetrieval\InformationRetrieval.csproj", "{F8E97275-ECA1-4DB0-B2D2-B48D2B29B468}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLPRedo", "NLPRedo\NLPRedo.csproj", "{E5771307-C14B-4CEF-A618-92D6078AA4AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F8E97275-ECA1-4DB0-B2D2-B48D2B29B468}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8E97275-ECA1-4DB0-B2D2-B48D2B29B468}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8E97275-ECA1-4DB0-B2D2-B48D2B29B468}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5771307-C14B-4CEF-A618-92D6078AA4AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5771307-C14B-4CEF-A618-92D6078AA4AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5771307-C14B-4CEF-A618-92D6078AA4AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5771307-C14B-4CEF-A618-92D6078AA4AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

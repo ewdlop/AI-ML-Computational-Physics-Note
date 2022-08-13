@@ -10,12 +10,15 @@
   <ItemGroup>
     <Compile Remove="InformationRetrieval\**" />
     <Compile Remove="NLP.Benchmark\**" />
+    <Compile Remove="NLPRedo\**" />
     <Compile Remove="NLPTest\**" />
     <EmbeddedResource Remove="InformationRetrieval\**" />
     <EmbeddedResource Remove="NLP.Benchmark\**" />
+    <EmbeddedResource Remove="NLPRedo\**" />
     <EmbeddedResource Remove="NLPTest\**" />
     <None Remove="InformationRetrieval\**" />
     <None Remove="NLP.Benchmark\**" />
+    <None Remove="NLPRedo\**" />
     <None Remove="NLPTest\**" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using NLP.Extensions;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace NLP.BERT.Tokenizers;
@@ -62,10 +63,21 @@ public class Tokenizer
         }
         return tokens;
     }
+    private class Comparer : IEqualityComparer<ReadOnlyMemory<char>>
+    {
+        public bool Equals(ReadOnlyMemory<char> x, ReadOnlyMemory<char> y)
+        {
+            return x.Span.SequenceEqual(y.Span);
+        }
 
+        public int GetHashCode([DisallowNull] ReadOnlyMemory<char> obj)
+        {
+            return obj.Span.GetHashCode();
+        }
+    }
     private List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> TokenizeSubwords2(ReadOnlyMemory<char> word)
     {
-        if (_vocabulary.Contains(word))
+        if (_vocabulary.Contains(word, new Comparer()))
         {
             return new List<(ReadOnlyMemory<char>, int)> { (word, _vocabulary.IndexOf(word)) };
         }

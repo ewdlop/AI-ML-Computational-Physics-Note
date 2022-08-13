@@ -319,7 +319,7 @@ public static partial class StringExtension
 }
 
 
-public static class StringExtensions
+public static partial class StringExtension
 {
     public static LineSplitEnumerator SplitLines(this string str, char c1, char c2)
     {

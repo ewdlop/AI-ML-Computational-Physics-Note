@@ -5,6 +5,7 @@ using NLP.BERT.Tokenizers;
 using NLP.BERT.Trainers;
 using NLP.Extensions;
 using NLP.Helpers;
+using System;
 
 namespace NLP.BERT;
 
@@ -63,17 +64,7 @@ public class BidirectionalEncoderRepresentationsFromTransformers
         List<(ReadOnlyMemory<char> Token, int VocabularyIndex, long SegmentIndex)> tokens = _tokenizer.Tokenize(question, context);
         BertInput input = BuildInput(tokens);
         BertPredictions predictions = _predictor.Predict(input);
-
-        static bool match1((ReadOnlyMemory<char> Token, int VocabularyIndex, long SegmentIndex) o)
-        {
-            bool match = o.Token.Span.Length == Tokens.Separation.Length;
-            for (int i = 0; i < Tokens.Separation.Length && match; i++)
-            {
-                match = o.Token.Span[i] == Tokens.Separation.Span[i];
-            }
-            return match;
-        }
-        int contextStart = tokens.FindIndex(match1);
+        int contextStart = tokens.FindIndex(o=> o.Token.Span.SequenceEqual(Tokens.Separation.Span));
         (int startIndex, int endIndex, float probability) = GetBestPrediction(predictions, contextStart, 20, 30);
 
 

@@ -14,12 +14,7 @@ public static class TokenizerExtension
         {
             segmentIndexes.Add(segmentIndex);
 
-            bool match = token.Span.Length == Tokens.Separation.Length;
-            for(int i = 0; i < Tokens.Separation.Length && match; i++)
-            {
-                match = token.Span[i] == Tokens.Separation.Span[i];
-            }
-            if (match)
+            if (token.Span.SequenceEqual(Tokens.Separation.Span))
             {
                 segmentIndex++;
             }
@@ -36,7 +31,7 @@ public static class TokenizerExtension
 
         foreach (ReadOnlyMemory<char> token in tokens)
         {
-            if (token.Span.StartsWith("##"))
+            if (token.Span.StartsWith(Tokenizer.PREFIX_MARK))
             {
                 currentTokenBuilder.Insert(0, token.ToString().Replace(Tokenizer.PREFIX_MARK, string.Empty));
             }
@@ -61,7 +56,7 @@ public static class TokenizerExtension
 
         foreach (ReadOnlyMemory<char> token in tokens)
         {
-            if (token.Span.StartsWith("##"))
+            if (token.Span.StartsWith(Tokenizer.PREFIX_MARK))
             {
                 if(System.Runtime.InteropServices.MemoryMarshal.TryGetString(token, out string? tokenString, out int start, out int length))
                 {
