@@ -5,6 +5,7 @@ namespace NLP.BERT.Tokenizers;
 
 public class Tokenizer
 {
+    public const string PREFIX_MARK = "##";
     private readonly IList<ReadOnlyMemory<char>> _vocabulary;
     public Tokenizer(IList<ReadOnlyMemory<char>> vocabulary)
     {
@@ -70,9 +71,10 @@ public class Tokenizer
         }
         List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> tokens = new();
         ReadOnlyMemory<char> remaining = word;
-        while (!word.IsEmpty && !remaining.IsEmpty)
+        while (!word.IsEmpty && remaining.Length > PREFIX_MARK.Length)
         {
-            (ReadOnlyMemory<char> prefix, int index) = _vocabulary.Where(v => v.Span.StartsWith(word.Span))
+            (ReadOnlyMemory<char> prefix, int index) = _vocabulary
+                    .Where(x=>remaining.Span.StartsWith(x.Span))
                     .Select((p, i) => (p, i))
                     .OrderByDescending(o => o.p.Length)
                     .FirstOrDefault();
@@ -82,8 +84,8 @@ public class Tokenizer
                 return tokens;
             }
 
-            remaining = new StringBuilder(remaining[prefix.Length..].ToString())
-                .Replace(prefix.ToString(), "##").ToString().AsMemory();
+            remaining = new StringBuilder(remaining.ToString())
+                .Replace(prefix.ToString(), PREFIX_MARK).ToString().AsMemory();
             tokens.Add((prefix, index));
         }
 
@@ -102,7 +104,7 @@ public class Tokenizer
         }
         List<(ReadOnlyMemory<char> Token, int VocabularyIndex)> tokens = new();
         ReadOnlyMemory<char> remaining = word;
-        while (!word.IsEmpty && !remaining.IsEmpty)
+        while (!word.IsEmpty && remaining.Length > PREFIX_MARK.Length)
         {
             (ReadOnlyMemory<char> prefix, int index) = _vocabulary.Where(v => v.Span.StartsWith(word.Span))
                     .Select((p, i) => (p, i))

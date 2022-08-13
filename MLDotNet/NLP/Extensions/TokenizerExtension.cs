@@ -14,7 +14,12 @@ public static class TokenizerExtension
         {
             segmentIndexes.Add(segmentIndex);
 
-            if (token.Equals(Tokens.Separation))
+            bool match = token.Span.Length == Tokens.Separation.Length;
+            for(int i = 0; i < Tokens.Separation.Length && match; i++)
+            {
+                match = token.Span[i] == Tokens.Separation.Span[i];
+            }
+            if (match)
             {
                 segmentIndex++;
             }
@@ -33,11 +38,11 @@ public static class TokenizerExtension
         {
             if (token.Span.StartsWith("##"))
             {
-                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
+                currentTokenBuilder.Insert(0, token.ToString().Replace(Tokenizer.PREFIX_MARK, string.Empty));
             }
             else
             {
-                currentTokenBuilder.Insert(0, token.ToString().Replace("##", ""));
+                currentTokenBuilder.Insert(0, token.ToString().Replace(Tokenizer.PREFIX_MARK, string.Empty));
                 untokens.Add(currentTokenBuilder.ToString());
                 currentTokenBuilder.Clear();
             }
@@ -60,14 +65,14 @@ public static class TokenizerExtension
             {
                 if(System.Runtime.InteropServices.MemoryMarshal.TryGetString(token, out string? tokenString, out int start, out int length))
                 {
-                    currentTokenBuilder.Insert(0, tokenString.Replace("##", ""));
+                    currentTokenBuilder.Insert(0, tokenString.Replace(Tokenizer.PREFIX_MARK, string.Empty));
                 }
             }
             else
             {
                 if (System.Runtime.InteropServices.MemoryMarshal.TryGetString(token, out string? tokenString, out int start, out int length))
                 {
-                    currentTokenBuilder.Insert(0, tokenString.Replace("##", ""));
+                    currentTokenBuilder.Insert(0, tokenString.Replace(Tokenizer.PREFIX_MARK, string.Empty));
                 }
                 untokens.Add(currentTokenBuilder.ToString());
                 currentTokenBuilder.Clear();

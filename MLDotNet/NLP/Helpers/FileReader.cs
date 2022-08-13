@@ -6,7 +6,6 @@ public static class FileReaderExtension
     {
         using StreamReader reader = new(filename);
         string? line;
-        
         while ((line = await reader.ReadLineAsync()) is not null)
         {
             if (!string.IsNullOrWhiteSpace(line))

@@ -1,4 +1,5 @@
-﻿using NLP.BERT.DataModel;
+﻿using Newtonsoft.Json.Linq;
+using NLP.BERT.DataModel;
 using NLP.BERT.Predictors;
 using NLP.BERT.Tokenizers;
 using NLP.BERT.Trainers;
@@ -18,9 +19,9 @@ public class BidirectionalEncoderRepresentationsFromTransformers
     /// Use Onnx
     /// </summary>
     /// <param name="bertModelPath"></param>
-    public BidirectionalEncoderRepresentationsFromTransformers(string bertModelPath)
+    public BidirectionalEncoderRepresentationsFromTransformers(string bertModelPath, int size)
     {
-        _vocabulary = new List<ReadOnlyMemory<char>>();
+        _vocabulary = new List<ReadOnlyMemory<char>>(size);
         _tokenizer = new Tokenizer(_vocabulary);
         Trainer trainer = new Trainer();
         Microsoft.ML.ITransformer trainedModel = trainer.BindAndTrains(bertModelPath, false);
@@ -31,7 +32,29 @@ public class BidirectionalEncoderRepresentationsFromTransformers
     {
         await foreach (ReadOnlyMemory<char> vocab in FileReaderExtension.ReadLinesAsMemoryAsync(vocabularyFilePath))
         {
-            _vocabulary.Add(vocab);
+            try
+            {
+                _vocabulary.Add(vocab);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+    }
+
+    public void ReadVocabularyFile(string vocabularyFilePath)
+    {
+        foreach (string? vocab in FileReaderExtension.ReadLines(vocabularyFilePath))
+        {
+            try
+            {
+                _vocabulary.Add(vocab.AsMemory());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 
@@ -40,7 +63,17 @@ public class BidirectionalEncoderRepresentationsFromTransformers
         List<(ReadOnlyMemory<char> Token, int VocabularyIndex, long SegmentIndex)> tokens = _tokenizer.Tokenize(question, context);
         BertInput input = BuildInput(tokens);
         BertPredictions predictions = _predictor.Predict(input);
-        int contextStart = tokens.FindIndex(o => o.Token.Equals(Tokens.Separation));
+
+        static bool match1((ReadOnlyMemory<char> Token, int VocabularyIndex, long SegmentIndex) o)
+        {
+            bool match = o.Token.Span.Length == Tokens.Separation.Length;
+            for (int i = 0; i < Tokens.Separation.Length && match; i++)
+            {
+                match = o.Token.Span[i] == Tokens.Separation.Span[i];
+            }
+            return match;
+        }
+        int contextStart = tokens.FindIndex(match1);
         (int startIndex, int endIndex, float probability) = GetBestPrediction(predictions, contextStart, 20, 30);
 
 

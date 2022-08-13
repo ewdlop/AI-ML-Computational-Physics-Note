@@ -8,10 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="InformationRetrieval\**" />
     <Compile Remove="NLP.Benchmark\**" />
     <Compile Remove="NLPTest\**" />
+    <EmbeddedResource Remove="InformationRetrieval\**" />
     <EmbeddedResource Remove="NLP.Benchmark\**" />
     <EmbeddedResource Remove="NLPTest\**" />
+    <None Remove="InformationRetrieval\**" />
     <None Remove="NLP.Benchmark\**" />
     <None Remove="NLPTest\**" />
   </ItemGroup>
@@ -26,6 +29,12 @@
 
   <ItemGroup>
     <Folder Include="Indexing\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="vocab.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
