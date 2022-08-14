@@ -95,7 +95,7 @@ public static class Frequency
     {
         if (positionalIndex.TryGetValue(term, out (int DocumentFrequnecy, Dictionary<int, List<int>> DocumentTermPositions) documents))
         {
-            return documents.DocumentTermPositions.Select(s => (s.Key, 1 + Math.Log10(s.Value.Count) * Math.Log10(totalDocumentCount / documents.DocumentFrequnecy)));
+            return documents.DocumentTermPositions.Select(s => (s.Key, (1 + Math.Log10(s.Value.Count)) * Math.Log10((double)totalDocumentCount / documents.DocumentFrequnecy)));
         }
         else
         {
