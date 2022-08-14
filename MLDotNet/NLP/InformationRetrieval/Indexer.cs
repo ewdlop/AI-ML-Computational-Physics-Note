@@ -12,7 +12,7 @@ public static class Indexer
     /// Inverted Index
     /// </summary>
     /// <param name="documents"></param>
-    public static Dictionary<string, (int documentFrequnecy, HashSet<int> documentIDs)> InvertedIndex(this string[] documents)
+    public static Dictionary<string, (int DocumentFrequnecy, HashSet<int> DocumentIDs)> InvertedIndex(this string[] documents)
     {
         Dictionary<string, (int documentFrequnecy, HashSet<int> documentIDs)> invertedIndex = new();
         for (int i = 0; i < documents.Length; i++)
@@ -21,10 +21,10 @@ public static class Indexer
             for (int j = 0; j < words.Length; j++)
             {
                 string word = words[j];
-                if (invertedIndex.TryGetValue(word, out (int documentFrequnecy, HashSet<int> documentIDs) existing))
+                if (invertedIndex.TryGetValue(word, out (int DocumentFrequnecy, HashSet<int> DocumentIDs) existing))
                 {
-                    invertedIndex[word] = (existing.documentFrequnecy + 1,
-                        existing.documentIDs.Append(i).OrderBy(i => i).ToHashSet());
+                    invertedIndex[word] = (existing.DocumentFrequnecy + 1,
+                        existing.DocumentIDs.Append(i).OrderBy(i => i).ToHashSet());
                 }
                 else
                 {
@@ -40,24 +40,25 @@ public static class Indexer
     /// https://www.youtube.com/watch?v=QVVvx_Csd2I&list=PLaZQkZp6WhWwoDuD6pQCmgVyDbUWl_ZUi&index=6
     /// </summary>
     /// <param name="documents"></param>
-    public static Dictionary<string, (int documentFrequnecy, Dictionary<int, List<int>> documentTermPositions)> PositionalIndex(this string[] documents)
+    public static Dictionary<string, (int DocumentFrequnecy, Dictionary<int, List<int>> DocumentTermPositions)> PositionalIndex(this string[] documents)
     {
-        Dictionary<string, (int documentFrequnecy, Dictionary<int, List<int>> documentTermPositions)> positionalIndex = new();
+        Dictionary<string, (int DocumentFrequnecy, Dictionary<int, List<int>> DocumentTermPositions)> positionalIndex = new();
         for (int i = 0; i < documents.Length; i++)
         {
             string[] words = documents[i].Split(Separators, StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < words.Length; j++)
             {
                 string word = words[j];
-                if (positionalIndex.TryGetValue(word, out (int documentFrequnecy, Dictionary<int, List<int>> documentTermPositions) existing))
+                if (positionalIndex.TryGetValue(word, out (int DocumentFrequnecy, Dictionary<int, List<int>> DocumentTermPositions) existing))
                 {
-                    if (existing.documentTermPositions.TryGetValue(i, out List<int>? existingPositions))
+                    if (existing.DocumentTermPositions.TryGetValue(i, out List<int>? existingPositions))
                     {
                         existingPositions.Add(j);
                     }
                     else
                     {
-                        existing.documentTermPositions[i] = new List<int>(1) { j };
+                        existing.DocumentTermPositions[i] = new List<int>(1) { j };
+                        positionalIndex[word] = (existing.DocumentFrequnecy + 1, existing.DocumentTermPositions);
                     }
                 }
                 else
@@ -71,12 +72,4 @@ public static class Indexer
         }
         return positionalIndex;
     }
-
-    public static IEnumerable<HashSet<int>> PhraseQuery(this Dictionary<string, (int documentFrequnecy, HashSet<int> documentIDs)> invertedIndex, string search, int threshold)
-    {
-        return invertedIndex.Where(s => s.Key.OptimalDamerauLevenshteinDistanceThreshold(search, threshold))
-            .Select(s => s.Value.documentIDs);
-    }
-
-    
-}
+}    

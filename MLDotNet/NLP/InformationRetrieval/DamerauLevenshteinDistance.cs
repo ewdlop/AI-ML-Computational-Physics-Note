@@ -1,4 +1,6 @@
-﻿namespace InformationRetrieval;
+﻿using System.Collections.Generic;
+
+namespace InformationRetrieval;
 
 public static class DamerauLevenshteinDistance
 {
