@@ -37,7 +37,7 @@ public static class Frequency
     
     public static IEnumerable<(int, int)> FuzzyTermFrequencies(this Dictionary<string, (int DocumentFrequnecy, Dictionary<int, List<int>> DocumentTermPositions)> PositionalIndex, string term, int threshold)
     {
-        return PositionalIndex.Where(s => s.Key.OptimalDamerauLevenshteinDistanceThreshold(term, threshold))
+        return PositionalIndex.Where(s => s.Key.OptimalDamerauLevenshteinDistanceWithinThreshold(term, threshold))
             .SelectMany(s => s.Value.DocumentTermPositions).Select(s => (s.Key, s.Value.Count));
     }
 
@@ -55,7 +55,7 @@ public static class Frequency
 
     public static IEnumerable<(int, double)> FuzzyLogTermFrequencies(this Dictionary<string, (int DocumentFrequnecy, Dictionary<int, List<int>> DocumentTermPositions)> PositionalIndex, string term, int threshold)
     {
-        return PositionalIndex.Where(s => s.Key.OptimalDamerauLevenshteinDistanceThreshold(term, threshold))
+        return PositionalIndex.Where(s => s.Key.OptimalDamerauLevenshteinDistanceWithinThreshold(term, threshold))
             .SelectMany(s => s.Value.DocumentTermPositions).Select(s => (s.Key, 1 + Math.Log10(s.Value.Count)));
     }
 
@@ -72,7 +72,7 @@ public static class Frequency
     }
 
     /// <summary>
-    /// Make rare highe score
+    /// Allowing less common terms having higher score
     /// </summary>
     /// <param name="positionalIndex"></param>
     /// <param name="term"></param>

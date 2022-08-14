@@ -2,7 +2,7 @@
 
 namespace InformationRetrieval;
 
-public static class DamerauLevenshteinDistance
+public static class DistanceMetric
 {
     /// <summary>
     /// Optimal Damerau–Levenshtein distance.
@@ -28,7 +28,7 @@ public static class DamerauLevenshteinDistance
         if (m == 0) return n;
 
         // Step 2
-        for (int i = 0; i <= n; d[i * m + 1] = i++) { }
+        for (int i = 0; i <= n; d[i * (m + 1)] = i++) { }
         for (int j = 0; j <= m; d[j] = j++) { }
 
         // Step 3
@@ -82,7 +82,7 @@ public static class DamerauLevenshteinDistance
         if (m == 0) return n;
 
         // Step 2
-        for (int i = 0; i <= n; d[i * m + 1] = i++) { }
+        for (int i = 0; i <= n; d[i * (m + 1)] = i++) { }
         for (int j = 0; j <= m; d[j] = j++) { }
 
         // Step 3
@@ -112,6 +112,8 @@ public static class DamerauLevenshteinDistance
         // Step 8
         return d[n * (m + 1) + m];
     }
+
+
     /// <summary>
     /// Optimal Damerau–Levenshtein distance.
     /// <para><see href="https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance"></see></para>
@@ -137,7 +139,7 @@ public static class DamerauLevenshteinDistance
         if (m == 0) return n;
 
         // Step 2
-        for (int i = 0; i <= n; d[i * m + 1] = i++) { }
+        for (int i = 0; i <= n; d[i * (m + 1)] = i++) { }
         for (int j = 0; j <= m; d[j] = j++) { }
 
         // Step 3
@@ -206,7 +208,7 @@ public static class DamerauLevenshteinDistance
         if (m == 0) return n;
 
         // Step 2
-        for (int i = 0; i <= n; d[i * m + 1] = i++) { }
+        for (int i = 0; i <= n; d[i * (m + 1)] = i++) { }
         for (int j = 0; j <= m; d[j] = j++) { }
 
         // Step 3
@@ -236,7 +238,7 @@ public static class DamerauLevenshteinDistance
         // Step 8
         return d[n * (m + 1) + m];
     }
-    public static bool OptimalDamerauLevenshteinDistanceThreshold(this string s, string t, int threshold)
+    public static bool OptimalDamerauLevenshteinDistanceWithinThreshold(this string s, string t, int threshold)
     {
         return OptimalDamerauLevenshteinDistance(s, t) <= threshold;
     }

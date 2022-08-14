@@ -11,7 +11,7 @@ public class Tokenizer
     private const string DOUBLE_WHITE_SPACE = "   ";
     private static readonly string PREFIX_LABEL_REPLACE = string.Empty;
     private readonly List<string> _vocabulary;
-    private static readonly string[] Separator = new string[] { WHITE_SPACE, DOUBLE_WHITE_SPACE, CARRIAGE_RETURN_NEXT_LINE
+    private static readonly string[] Separator = new string[] { WHITE_SPACE, DOUBLE_WHITE_SPACE, CARRIAGE_RETURN_NEXT_LINE };
     public Tokenizer(List<string> vocabulary)
     {
         _vocabulary = vocabulary;
