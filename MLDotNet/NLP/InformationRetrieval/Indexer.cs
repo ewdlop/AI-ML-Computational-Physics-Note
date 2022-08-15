@@ -72,4 +72,4 @@ public static class Indexer
         }
         return positionalIndex;
     }
-}    
+}   
