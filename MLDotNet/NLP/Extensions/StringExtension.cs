@@ -3,7 +3,8 @@
 public static partial class StringExtension
 {
     private const string DELIMITERS = ".,;:\\/?!#$%()=+-*\"'–_`<>&^@{}[]|~'";
-    private static readonly Lazy<string[]> _delimiters = new(() => new string[3] {" ", "   ", "\r\n" });
+    private const double JARO_WINKER_SIMILARITY_CONSTANT_FACTOR = 0.1; //1/4
+    private static readonly Lazy<string[]> _delimiters = new(() => new string[3] { " ", "   ", "\r\n" });
     public static IEnumerable<ReadOnlyMemory<char>> AsSplitMemoryAndNotKeepingDelimters(
         this string inputString, params char[] delimiters)
     {
@@ -110,8 +111,8 @@ public static partial class StringExtension
         if (m == 0) return n;
 
         // Step 2
-        for (int i = 0; i <= n; d[i, 0] = i++){}
-        for (int j = 0; j <= m; d[0, j] = j++){}
+        for (int i = 0; i <= n; d[i, 0] = i++) { }
+        for (int j = 0; j <= m; d[0, j] = j++) { }
 
         // Step 3
         for (int i = 1; i <= n; i++)
@@ -120,7 +121,7 @@ public static partial class StringExtension
             for (int j = 1; j <= m; j++)
             {
                 // Step 5
-                int cost = (t[j-1] == s[i-1]) ? 0 : 1;
+                int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
 
                 // Step 6
                 d[i, j] = Math.Min(
@@ -156,14 +157,14 @@ public static partial class StringExtension
     {
         int n = s.Length;
         int m = t.Length;
-        int[] d = new int[(n+1) * (m + 1)];
+        int[] d = new int[(n + 1) * (m + 1)];
 
         // Step 1
         if (n == 0) return m;
         if (m == 0) return n;
 
         // Step 2
-        for (int i = 0; i <= n; d[i*m+1] = i++) { }
+        for (int i = 0; i <= n; d[i * m + 1] = i++) { }
         for (int j = 0; j <= m; d[j] = j++) { }
 
         // Step 3
@@ -176,8 +177,8 @@ public static partial class StringExtension
                 int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
 
                 // Step 6
-                d[i*(m+1)+j] = Math.Min(
-                    Math.Min(d[(i - 1)*(m+1)+j] + 1, d[i*(m+1)+j - 1] + 1),
+                d[i * (m + 1) + j] = Math.Min(
+                    Math.Min(d[(i - 1) * (m + 1) + j] + 1, d[i * (m + 1) + j - 1] + 1),
                     d[(i - 1) * (m + 1) + j - 1] + cost);
 
                 // Step 7
@@ -316,10 +317,72 @@ public static partial class StringExtension
         indice = null;
         return false;
     }
+
+    //https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
+    //Jaro-Winkler is a measure of the similarity between two strings.
+
+    public static double JaroWinklerDistance(this string s, string t)
+    {
+        int n = s.Length;
+        int m = t.Length;
+        if (n == 0) return m == 0 ? 1.0 : 0.0;
+        if (m == 0) return n == 0 ? 1.0 : 0.0;
+        int halflen = Math.Max(0, Math.Min(n, m) / 2 - 1);
+        bool[] sflags = new bool[n];
+        bool[] tflags = new bool[m];
+        int matches = 0;
+        for (int i = 0; i < n; i++)
+        {
+            int low = Math.Max(0, i - halflen);
+            int high = Math.Min(i + halflen + 1, m);
+            for (int j = low; j < high; j++)
+            {
+                if (!tflags[j] && t[j] == s[i])
+                {
+                    sflags[i] = true;
+                    tflags[j] = true;
+                    matches++;
+                    break;
+                }
+            }
+        }
+        if (matches == 0) return 0.0;
+        int prefix = 0;
+        for (int mi = 0; mi < Math.Min(n, m); mi++)
+        {
+            if (s[mi] == t[mi])
+            {
+                prefix++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        int transpositions = 0;
+        for (int i = 0, j = 0; i < n; i++)
+        {
+            if (sflags[i])
+            {
+                while (!tflags[j])
+                {
+                    j++;
+                }
+                if (s[i] != t[j])
+                {
+                    transpositions++;
+                }
+                j++;
+            }
+        }
+        double jaro = 1.0 / 3 * ((double)matches / n + (double)matches / m + (double)(matches - transpositions / 2) / matches);
+        double jaroWinkler = jaro + Math.Min(1, prefix * 0.1) * (1.0 - jaro);
+        return jaroWinkler;
+    }
 }
 
 
-public static partial class StringExtension
+    public static partial class StringExtension
 {
     public static LineSplitEnumerator SplitLines(this string str, char c1, char c2)
     {
