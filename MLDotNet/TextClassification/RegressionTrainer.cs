@@ -30,9 +30,9 @@ public class RegressionTrainer
         
     }
 
-    public RegressionOutput Predict(RegressionInput encodedInput)
+    public RegressionOutput Predict(RegressionInput input)
     {
-        return _predictorPool.Predict(encodedInput);
+        return _predictorPool.Predict(input);
     }
 }
 
