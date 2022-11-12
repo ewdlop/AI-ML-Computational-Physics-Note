@@ -1,6 +1,6 @@
 ﻿namespace InformationRetrieval;
 
-public static class Query
+public static class PositionAlIndexQuery
 {
     public static HashSet<int>? PhraseQuery(this Dictionary<string, (int DocumentFrequnecy, HashSet<int> DocumentIDs)> invertedIndex, string term) => 
         invertedIndex.TryGetValue(term, out (int DocumentFrequnecy, HashSet<int> DocumentIDs) documents)
