@@ -45,9 +45,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InferDotNet", "..\InferDotN
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImageClassification", "ImageClassification", "{FD0A2813-0497-4DA6-9376-F9AB2C622ED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextClassification", "..\TextClassification\TextClassification.csproj", "{37F6CD6C-9F49-4EA7-9633-7C11D50C3BEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextClassification", "..\TextClassification\TextClassification.csproj", "{37F6CD6C-9F49-4EA7-9633-7C11D50C3BEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLShared", "..\MLShared\MLShared.csproj", "{86D3006E-49FC-4F5D-8F40-D9881BFBC98A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLShared", "..\MLShared\MLShared.csproj", "{86D3006E-49FC-4F5D-8F40-D9881BFBC98A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexrBlazorApp", "..\IndexrBlazorApp\IndexrBlazorApp.csproj", "{3E14DC2E-154C-41F7-B062-F723B2159CDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,10 @@ Global
 		{86D3006E-49FC-4F5D-8F40-D9881BFBC98A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86D3006E-49FC-4F5D-8F40-D9881BFBC98A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86D3006E-49FC-4F5D-8F40-D9881BFBC98A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E14DC2E-154C-41F7-B062-F723B2159CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E14DC2E-154C-41F7-B062-F723B2159CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E14DC2E-154C-41F7-B062-F723B2159CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E14DC2E-154C-41F7-B062-F723B2159CDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

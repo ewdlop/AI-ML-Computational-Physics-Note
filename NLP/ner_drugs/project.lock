@@ -1,0 +1,27 @@
+preprocess:
+  cmd: python -m spacy run preprocess
+  script:
+    - python scripts/preprocess.py assets/drugs_training.jsonl corpus/drugs_training.spacy
+    - python scripts/preprocess.py assets/drugs_eval.jsonl corpus/drugs_eval.spacy
+  deps:
+    - path: assets/drugs_training.jsonl
+      md5: 4461081e67d8160cab4624e61448f371
+    - path: assets/drugs_eval.jsonl
+      md5: 4d730f6132de46fad3f76720ce9794f7
+    - path: scripts/preprocess.py
+      md5: c1b6ad0e6e5ad7102a6d3fb0de7a4101
+  outs:
+    - path: corpus/drugs_training.spacy
+      md5: 64ee10b371282c3fd2f0e947a6480c91
+    - path: corpus/drugs_eval.spacy
+      md5: 0ffa8d28f223fab18e9934041a112495
+  spacy_version: 3.5.0
+  spacy_git_version: dec81508d
+download:
+  cmd: python -m spacy run download
+  script:
+    - python -m spacy download en_core_web_md
+  deps: []
+  outs: []
+  spacy_version: 3.5.0
+  spacy_git_version: dec81508d

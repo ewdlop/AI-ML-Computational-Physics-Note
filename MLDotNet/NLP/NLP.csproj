@@ -23,11 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ML" Version="1.7.1" />
-    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.11.0" />
-    <PackageReference Include="Microsoft.ML.OnnxRuntime.Gpu" Version="1.11.0" />
+    <PackageReference Include="Microsoft.ML" Version="2.0.0" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.13.1" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.Gpu" Version="1.13.1" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime.MKLML" Version="1.6.0" />
-    <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.7.1" />
+    <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Spark" Version="2.1.1" />
+    <PackageReference Include="Stanford.NLP.NER" Version="4.2.0.2" />
+    <PackageReference Include="Stanford.NLP.Parser" Version="4.2.0.2" />
+    <PackageReference Include="Stanford.NLP.POSTagger" Version="4.2.0.2" />
+    <PackageReference Include="Stanford.NLP.Segmenter" Version="4.2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
