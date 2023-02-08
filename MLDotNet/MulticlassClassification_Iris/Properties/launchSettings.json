@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "MulticlassClassification_Iris": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61439;http://localhost:61440"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "BinaryClassification": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61445;http://localhost:61446"
+    }
+  }
+}

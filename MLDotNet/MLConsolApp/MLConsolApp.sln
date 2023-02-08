@@ -49,7 +49,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextClassification", "..\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLShared", "..\MLShared\MLShared.csproj", "{86D3006E-49FC-4F5D-8F40-D9881BFBC98A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexrBlazorApp", "..\IndexrBlazorApp\IndexrBlazorApp.csproj", "{3E14DC2E-154C-41F7-B062-F723B2159CDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndexrBlazorApp", "..\IndexrBlazorApp\IndexrBlazorApp.csproj", "{3E14DC2E-154C-41F7-B062-F723B2159CDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Regression", "Regression", "{65D74911-184A-4B01-8C6B-76694DDB766E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegressionApp", "..\RegressionApp\RegressionApp.csproj", "{38774134-3608-4DDA-9856-962EDC5DE7A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +137,10 @@ Global
 		{3E14DC2E-154C-41F7-B062-F723B2159CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E14DC2E-154C-41F7-B062-F723B2159CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E14DC2E-154C-41F7-B062-F723B2159CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38774134-3608-4DDA-9856-962EDC5DE7A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38774134-3608-4DDA-9856-962EDC5DE7A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38774134-3608-4DDA-9856-962EDC5DE7A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38774134-3608-4DDA-9856-962EDC5DE7A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -156,6 +164,7 @@ Global
 		{61AFA2B5-383E-4A2A-8E39-6A124AF3BBA3} = {200E40BF-7D08-420F-9F5A-21F3464041D4}
 		{E2777126-22EC-4295-AFD5-27090BD631B7} = {90E5F8CF-727F-401E-AAEC-2916808F7CAD}
 		{37F6CD6C-9F49-4EA7-9633-7C11D50C3BEB} = {200E40BF-7D08-420F-9F5A-21F3464041D4}
+		{38774134-3608-4DDA-9856-962EDC5DE7A4} = {65D74911-184A-4B01-8C6B-76694DDB766E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EA2D258-107F-49E7-8125-F0B787C931E9}

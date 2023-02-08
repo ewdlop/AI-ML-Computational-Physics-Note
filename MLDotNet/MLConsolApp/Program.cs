@@ -39,6 +39,6 @@ var pipeline =
 
 IDataView transformedData = pipeline.Fit(data).Transform(data);
 
-// 检查结果数据集的某些列。
 var embeddings = transformedData.GetColumn<float[]>("Embeddings").Take(10).ToArray();
 var unigrams = transformedData.GetColumn<float[]>("BagOfWords").Take(10).ToArray();
+
