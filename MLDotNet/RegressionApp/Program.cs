@@ -11,7 +11,7 @@ ITransformer model = Train(mlContext, _trainDataPath);
 Evaluate(mlContext, model);
 TestSinglePrediction(mlContext, model);
 
-var trainingDataView = mlContext.Data.LoadFromTextFile<ProductData>(dataPath, hasHeader: true, separatorChar: ',');
+//var trainingDataView = mlContext.Data.LoadFromTextFile<ProductData>(dataPath, hasHeader: true, separatorChar: ',');
 ITransformer Train(MLContext mlContext, string dataPath)
 {
     IDataView dataView = mlContext.Data.LoadFromTextFile<TaxiTrip>(dataPath, hasHeader: true, separatorChar: ',');
