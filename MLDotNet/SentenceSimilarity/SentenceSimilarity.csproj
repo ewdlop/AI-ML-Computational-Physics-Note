@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="Microsoft.ML" Version="3.0.0-preview.23266.6" />
+    <PackageReference Include="Microsoft.ML.TorchSharp" Version="0.21.0-preview.23266.6" />
+    <PackageReference Include="TorchSharp" Version="0.100.2" />
+    <PackageReference Include="TorchSharp-cpu" Version="0.100.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="train.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

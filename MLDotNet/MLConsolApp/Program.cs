@@ -32,7 +32,7 @@ var pipeline =
                 ngramLength: 3, weighting: NgramExtractingEstimator.WeightingCriteria.TfIdf)
     .Append(mlContext.Transforms.Text.TokenizeIntoWords("TokenizedMessage", "NormalizedMessage"))
     .Append(mlContext.Transforms.Text.ApplyWordEmbedding("Embeddings", "TokenizedMessage",
-                WordEmbeddingEstimator.PretrainedModelKind.SentimentSpecificWordEmbedding);
+                WordEmbeddingEstimator.PretrainedModelKind.SentimentSpecificWordEmbedding)));
 
 
 
