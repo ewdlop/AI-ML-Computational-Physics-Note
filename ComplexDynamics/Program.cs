@@ -15,14 +15,14 @@ static SKBitmap GenerateJuliaSet(int width, int height, int maxIterations)
     SKBitmap bitmap = new SKBitmap(width, height);
     SKColor[] colors = GenerateColors(maxIterations);
 
-    double c_re = -0.4;
-    double c_im = 0.6;
+    double c_re = -0.1;
+    double c_im = 0.56;
     for (int row = 0; row < height; row++)
     {
         for (int col = 0; col < width; col++)
         {
             int iteration = CalculateIteration(col, row, width, height, c_re, c_im, maxIterations);
-            bitmap.SetPixel(col, row, iteration < maxIterations ? colors[iteration] : SKColors.Black);
+            bitmap.SetPixel(col, row, iteration < maxIterations ? colors[iteration] : SKColors.White);
         }
     }
     return bitmap;
@@ -35,13 +35,13 @@ static SKColor[] GenerateColors(int maxIterations)
     for (int i = 0; i < maxIterations; i++)
     {
         // Cycle through the hue range based on iteration
-        float hue = (360.0f * i) / maxIterations;
+        float hue = (i * HueFactor + HueOffset * 360) % 360;
 
         // For a vibrant gradient, keep saturation high
-        float saturation = 1.0f;
+        float saturation = Saturation;
 
         // Keeping value high ensures colors are bright
-        float value = 0.9f;  // You can experiment with this value, but keep it high for bright colors
+        float value = ValueBase;
 
         colors[i] = SKColor.FromHsv(hue, saturation, value);
     }
@@ -52,8 +52,9 @@ static SKColor[] GenerateColors(int maxIterations)
 
 static int CalculateIteration(int col, int row, int width, int height, double c_re, double c_im, int maxIterations)
 {
-    double x = (col - width / 2) * (4.0 / width);
-    double y = (height / 2 - row) * (4.0 / height);
+    double x = (col - width / 2.0) * (3.5 / width);  // Adjust the 3.5 as needed for zoom
+    double y = (row - height / 2.0) * (3.5 / height); // Adjust the 3.5 as needed for zoom
+
     int iteration = 0;
     while (x * x + y * y < 4 && iteration < maxIterations)
     {
