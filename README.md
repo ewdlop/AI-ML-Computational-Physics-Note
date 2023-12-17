@@ -6,7 +6,7 @@ Q-Learning written in C#. Made with Unity.
 [Semantic-kernel](https://learn.microsoft.com/en-us/semantic-kernel/overview/)
 # Computational-Physics
 [Computational-Physics-Notes](https://github.com/ewdlop/Computational-Physcis-Notes)
-# ComfyUI + ComfyUIManager + https://civitai.com/
+# ComfyUI + ComfyUIManager + CIVITAI
 [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager)
 [CIVITAI](https://civitai.com/)
