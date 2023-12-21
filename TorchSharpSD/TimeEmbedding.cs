@@ -5,8 +5,8 @@ using static TorchSharp.torch.nn;
 //https://github.com/hkproj/pytorch-stable-diffusion/blob/main/sd/diffusion.py
 public class TimeEmbedding(string Name, int NEmbedding) : Module(Name)
 {
-    public Linear Linear1 => Linear(NEmbedding, 4 * NEmbedding);
-    public Linear Linear2 => Linear(4 * NEmbedding, 4 * NEmbedding);
+    public Linear Linear1 = Linear(NEmbedding, 4 * NEmbedding);
+    public Linear Linear2 = Linear(4 * NEmbedding, 4 * NEmbedding);
 
     public Tensor Forward(Tensor x)
     {
