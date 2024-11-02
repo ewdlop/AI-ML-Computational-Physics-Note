@@ -11,3 +11,6 @@ Q-Learning written in C#. Made with Unity.
 [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager)
 [CIVITAI](https://civitai.com/)
 [stable-diffusion](https://github.com/AUTOMATIC1111/stable-diffusion-webui?tab=readme-ov-file)
+
+# 
+https://www.imdb.com/title/tt0182789/
