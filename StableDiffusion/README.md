@@ -1,4 +1,3 @@
-
 # Inference Stable Diffusion with C# and ONNX Runtime
 
 This repo contains the logic to do inferencing for the popular Stable Diffusion deep learning model in C#.  Stable Diffusion models take a text prompt and create an image that represents the text.
@@ -51,6 +50,47 @@ git clone https://huggingface.co/CompVis/stable-diffusion-v1-4 -b onnx
 - Set Build for x64 
 
 - Hit `F5` to run the project in Visual Studio or `dotnet run` in the terminal to run the project in VS Code.
+
+## Purpose
+
+The `StableDiffusion` directory contains projects for stable diffusion models. It provides the logic to perform inferencing for the popular Stable Diffusion deep learning model in C#. The directory includes scripts and projects that demonstrate how to use Stable Diffusion models with C# and ONNX Runtime.
+
+## Instructions
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/ewdlop/AI-ML-Computational-Physics-Note.git
+cd AI-ML-Computational-Physics-Note/StableDiffusion
+```
+
+2. Install the prerequisites:
+
+- [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [VS Code](https://code.visualstudio.com/Download)
+- A GPU enabled machine with CUDA or DirectML on Windows
+
+3. Use Hugging Face to download the Stable Diffusion models:
+
+Download the [ONNX Stable Diffusion models from Hugging Face](https://huggingface.co/models?sort=downloads&search=Stable+Diffusion).
+
+- [Stable Diffusion Models v1.4](https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/onnx)
+- [Stable Diffusion Models v1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5/tree/onnx)
+
+4. Clone the model repo:
+
+```text
+git lfs install
+git clone https://huggingface.co/CompVis/stable-diffusion-v1-4 -b onnx
+```
+
+5. Copy the folders with the ONNX files to the C# project folder `\StableDiffusion\StableDiffusion`. The folders to copy are: `unet`, `vae_decoder`, `text_encoder`, `safety_checker`.
+
+6. Set Build for x64
+
+7. Run the project:
+
+- In Visual Studio: Hit `F5`
+- In VS Code: Run the project in the terminal using `dotnet run`
 
 _____________________
 ## Follow the full Stable Diffusion C# Tutorial for this Repo [here](https://onnxruntime.ai/docs/tutorials/csharp/stable-diffusion-csharp.html)

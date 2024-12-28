@@ -26,7 +26,11 @@ The integration of large language models (LLMs) has significantly advanced medic
 
 Medical NLP continues to evolve, offering promising solutions to complex challenges in healthcare data analysis and patient care.
 
-**Sources:**
+**Purpose**
+
+The `Medical NLP.md` file provides an overview of the applications, recent advances, and challenges of medical Natural Language Processing (NLP) in healthcare. It highlights the key areas where medical NLP is being applied, such as clinical data extraction, clinical research support, patient engagement, medical coding and billing, and adverse event detection. The document also discusses the integration of large language models (LLMs) and domain-specific models in medical NLP, as well as the challenges related to data privacy, data quality, and interpretability.
+
+**Relevant Links and Resources**
 
 - [6 Uses for Natural Language Processing in Healthcare - Hitachi Solutions](https://global.hitachi-solutions.com/blog/nlp-in-healthcare/)
 - [Top 14 Natural Language Processing Use Cases in Healthcare](https://marutitech.com/use-cases-of-natural-language-processing-in-healthcare/)
