@@ -1,6 +1,30 @@
+# README
+
 [![Dependabot Updates](https://github.com/ewdlop/AI-ML-Computational-Physics-Note/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/ewdlop/AI-ML-Computational-Physics-Note/actions/workflows/dependabot/dependabot-updates)
 
-# Overview
+## Overview
+
+```python
+import time
+
+def show_pleased():
+    happy_face = '''
+    ╔════════════╗
+    ║   ╭────╮   ║
+    ║  (ᵔᴥᵔ)    ║
+    ║   \＿＿/    ║
+    ╚════════════╝
+    '''
+    for _ in range(3):
+        print("\033[93m" + happy_face + "\033[0m")  # Yellow color
+        time.sleep(0.5)
+        print("\033[91m" + happy_face.replace('ᵔᴥᵔ', '♥‿♥') + "\033[0m")  # Red heart eyes
+        time.sleep(0.5)
+
+    print("\n🌈 You're awesome! Have a wonderful day! 🌟")
+
+show_pleased()
+```
 
 This repository contains various projects related to AI, ML, and computational physics. Below is a detailed description of the repository's content, including links to relevant submodules and external resources.
 
