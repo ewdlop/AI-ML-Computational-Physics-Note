@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doge Dance</title>
+    <style>
+        body {
+            background-color: #f4d03f;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .doge-container {
+            position: relative;
+            display: inline-block;
+            margin-top: 50px;
+        }
+
+        .doge {
+            width: 200px;
+            height: auto;
+            position: relative;
+            animation: dance 0.5s infinite alternate;
+        }
+
+        @keyframes dance {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .wow-text {
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            color: #ff5733;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            animation: float 2s infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); opacity: 1; }
+            100% { transform: translateY(-30px); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Such Dance, Much Wow!</h1>
+    <div class="doge-container">
+        <img class="doge" src="https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg" alt="Doge">
+        <div class="wow-text" id="wow-text">WOW!</div>
+    </div>
+
+    <script>
+        const wowWords = ["WOW!", "SUCH MOVES!", "VERY DANCE!", "MUCH GROOVE!", "SO DOGE!"];
+        const wowText = document.getElementById("wow-text");
+
+        function changeText() {
+            wowText.innerText = wowWords[Math.floor(Math.random() * wowWords.length)];
+            wowText.style.left = Math.random() * 100 + "px";
+            wowText.style.top = Math.random() * 100 + "px";
+        }
+
+        setInterval(changeText, 1000);
+    </script>
+</body>
+</html>
