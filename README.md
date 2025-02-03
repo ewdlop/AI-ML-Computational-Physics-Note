@@ -1,6 +1,7 @@
 # README
 
 [![Dependabot Updates](https://github.com/ewdlop/AI-ML-Computational-Physics-Note/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/ewdlop/AI-ML-Computational-Physics-Note/actions/workflows/dependabot/dependabot-updates)
+[![CodeQL](https://github.com/ewdlop/AI-ML-Computational-Physics-Note/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ewdlop/AI-ML-Computational-Physics-Note/actions/workflows/github-code-scanning/codeql)
 
 ## Overview
 
