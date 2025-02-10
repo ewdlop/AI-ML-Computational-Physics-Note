@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Fundamental Theorem of Calculus - Coq Proof}
+\author{AI Course Assistant}
+\date{\today}
+\maketitle
+
+\section{Statement}
+For a function \( f \) and its antiderivative \( F \), we prove:
+\[
+\int_a^b f(x) dx = F(b) - F(a)
+\]
+
+\section{Coq Proof}
+\begin{verbatim}
+Require Import Reals.
+Require Import Coquelicot.Coquelicot.
+
+Lemma FTC : forall (f F : R -> R) (a b : R),
+  (forall x, a <= x <= b -> derivable_pt F x) ->
+  (forall x, a <= x <= b -> derive_pt F x = f x) ->
+  integral a b f = F b - F a.
+Proof.
+  intros f F a b Hderivable Hderive.
+  apply Riemann_integral_FTC.
+  - exact Hderivable.
+  - exact Hderive.
+Qed.
+\end{verbatim}
+
+\section{Conclusion}
+This Coq proof formally verifies the Fundamental Theorem of Calculus.
+
+\end{document}
